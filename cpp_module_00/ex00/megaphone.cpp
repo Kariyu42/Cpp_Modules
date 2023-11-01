@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:10:29 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/11/01 12:00:12 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:07:18 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	upper_case_format(int ac, char **av)
 
 	for (int i = 1; i < ac; i++)
 	{
-		std::string str = av[i];
+		str = av[i];
 		for (int j = 0; j < str.length(); j++)
 		{
 			std::cout << (char)std::toupper(str[j]);
 		}
-		if (i != ac - 1)
+		if (i < ac - 1)
 			std::cout << ' ';
 	}
 }
