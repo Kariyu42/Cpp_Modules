@@ -6,23 +6,35 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:10:29 by kquetat-          #+#    #+#             */
-/*   Updated: 2023/10/31 15:39:56 by kquetat-         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:00:12 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <cctype>
 
 void	upper_case_format(int ac, char **av)
 {
-	for (int i = 0; i < ac; i++) {
-		
+	std::string	str;
+
+	for (int i = 1; i < ac; i++)
+	{
+		std::string str = av[i];
+		for (int j = 0; j < str.length(); j++)
+		{
+			std::cout << (char)std::toupper(str[j]);
+		}
+		if (i != ac - 1)
+			std::cout << ' ';
 	}
 }
 
 int	main(int ac, char **av)
 {
 	if (ac < 2)
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
+		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
 	else
 		upper_case_format(ac, av);
+	std::cout << std::endl;
+	return 0;
 }
