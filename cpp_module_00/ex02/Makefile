@@ -6,12 +6,12 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 14:26:28 by kquetat-          #+#    #+#              #
-#    Updated: 2024/01/17 15:01:52 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/01/17 15:15:44 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # --- SRC / OBJ --- #
-SRC			=	megaphone.cpp
+SRC			=	Account.cpp tests.cpp
 
 OBJ			=	${SRC:.cpp=.o}
 
@@ -28,7 +28,7 @@ endif
 	${CC} ${CFLAGS} -c $< -o $@
 
 # --- EXEC / RULES --- #
-NAME	=	megaphone
+NAME	=	account
 
 all:	${NAME}
 
