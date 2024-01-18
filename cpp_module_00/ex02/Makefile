@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 14:26:28 by kquetat-          #+#    #+#              #
-#    Updated: 2024/01/17 15:15:44 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/01/18 09:57:50 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ ifdef	DEBUG
 	CC	+=	-g
 endif
 
-%.o: %.c
+%.o: %.cpp
 	${CC} ${CFLAGS} -c $< -o $@
 
 # --- EXEC / RULES --- #

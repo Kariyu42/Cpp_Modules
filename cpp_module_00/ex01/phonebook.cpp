@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:14:26 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/17 14:50:44 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:21:56 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "PhoneBook.class.hpp"
 
 static bool	isAllAlpha(const std::string& str) {
-	for (int i = 0; i < str.length(); i++) {
+	for (size_t i = 0; i < str.length(); i++) {
 		if (!std::isalpha(str[i])) {
 			return (false);
 		}
@@ -23,7 +23,7 @@ static bool	isAllAlpha(const std::string& str) {
 }
 
 static bool	isAllDigit(const std::string& str) {
-	for (int i = 0; i < str.length(); i++) {
+	for (size_t i = 0; i < str.length(); i++) {
 		if (!std::isdigit(str[i])) {
 			return (false);
 		}
@@ -32,6 +32,7 @@ static bool	isAllDigit(const std::string& str) {
 }
 
 static bool	alwaysTrue(const std::string& str) {
+	(void)str;
 	return (true);
 }
 
@@ -81,7 +82,7 @@ void	PhoneBook::addContact() {
 }
 
 static std::string	truncateStr(const std::string& str) {
-	int	len = 10;
+	size_t	len = 10;
 
 	if (str.length() > len)
 		return (str.substr(0, len - 1) + ".");

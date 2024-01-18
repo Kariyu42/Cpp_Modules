@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:05:39 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/17 20:08:42 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:16:19 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	Account::checkAmount( void ) const {
 }
 
 void	Account::_displayTimestamp( void ) {
-	std::time_t	timeStamp = time(nullptr);
+	std::time_t	timeStamp = time(NULL);
 	std::tm *timeInfo = std::localtime(&timeStamp);
 
 	char	buffer[80];
@@ -95,23 +95,25 @@ void	Account::makeDeposit( int deposit ) {
 				<< ";p_amount:" << _amount
 				<< ";deposit:" << deposit
 				<< ";amount:" << _amount + deposit
-				<<  ";nb_deposits:" << _nbDeposits << std::endl;
+				<< ";nb_deposits:" << _nbDeposits << std::endl;
+	_amount += deposit;
 }
 
 bool	Account::makeWithdrawal( int withdrawal ) {
 	_displayTimestamp();
 	std::cout	<< "index:" << _accountIndex
-				<< ";p_amount:" << _amount
-				<< ";withdrawal:" << withdrawal;
+				<< ";p_amount:" << _amount;
 	if (_amount < withdrawal) {
 		std::cout << ";withdrawal:refused" << std::endl;
 		return false;
 	}
+	else
+		std::cout << ";withdrawal:" << withdrawal;
 	_totalNbWithdrawals++;
 	_nbWithdrawals++;
 	_amount -= withdrawal;
 	_totalAmount -= withdrawal;
 	std::cout	<< ";amount:" << _amount
-				<< ";nb_withdrawal:" << _nbWithdrawals << std::endl;
+				<< ";nb_withdrawals:" << _nbWithdrawals << std::endl;
 	return true;
 }

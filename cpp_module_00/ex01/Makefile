@@ -6,13 +6,11 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/31 14:26:28 by kquetat-          #+#    #+#              #
-#    Updated: 2024/01/17 11:47:21 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/01/18 16:06:08 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # --- SRC / OBJ --- #
-SRC_PATH	=	./src/
-
 SRC			=	main.cpp PhoneBook.cpp Contact.cpp
 
 OBJ			=	${SRC:.cpp=.o}
@@ -26,7 +24,7 @@ ifdef	DEBUG
 	CC	+=	-g
 endif
 
-${SRC_PATH}%.o: ${SRC_PATH}%.c
+%.o: %.cpp
 	${CC} ${CFLAGS} -c $< -o $@
 
 # --- EXEC / RULES --- #
