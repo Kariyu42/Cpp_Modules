@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:48:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/17 14:54:26 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:57:17 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 # define PHONEBOOK_HPP
 
 # include <iomanip>
+# include <cctype>
+# include <string>
+# include <sstream>
 # include "Contact.class.hpp"
 
-# define MAX_CONTACT 8
+# ifndef MAX_CONTACT
+#  define MAX_CONTACT 8
+# endif
 
 class PhoneBook
 {
