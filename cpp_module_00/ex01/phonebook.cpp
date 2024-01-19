@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:14:26 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/18 16:21:56 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:54:39 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	inputInfo(const std::string& str, Contact& contact, bool (*isTrue)(c
 			std::cout << "EOF reached. Exiting..." << std::endl;
 			exit(1);
 		}
-		if (isTrue(info))
+		if (!info.empty() && isTrue(info))
 		{
 			if (str == "firstname")
 				contact.setFirstName(info);

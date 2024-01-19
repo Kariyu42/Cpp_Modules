@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:48:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/18 17:57:17 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:39:29 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <cctype>
 # include <string>
 # include <sstream>
+# include <cstdlib>
 # include "Contact.class.hpp"
 
 # ifndef MAX_CONTACT

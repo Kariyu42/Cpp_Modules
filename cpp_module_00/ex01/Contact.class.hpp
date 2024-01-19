@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:47:52 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/17 14:38:34 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:39:38 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <cctype>
 # include <string>
 # include <sstream>
+# include <cstdlib>
 
 class	Contact
 {
