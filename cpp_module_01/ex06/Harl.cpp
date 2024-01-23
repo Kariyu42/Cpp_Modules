@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:40:42 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/23 15:05:56 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:35:02 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ void	Harl::complain( std::string level ) {
 	switch (lvl) {
 		case DEBUG:
 			this->debug();
-			break ;
+			// fallthrough
 		case INFO:
 			this->info();
-			break ;
+			// fallthrough
 		case WARNING:
 			this->warning();
-			break ;
+			// fallthrough
 		case ERROR:
 			this->error();
-			break ;
+			// fallthrough
 		default:
 			break ;
 	}
