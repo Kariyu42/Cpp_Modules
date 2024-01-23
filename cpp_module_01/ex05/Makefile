@@ -6,12 +6,12 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/19 13:51:57 by kquetat-          #+#    #+#              #
-#    Updated: 2024/01/22 17:39:45 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/01/23 13:07:01 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # --- SRC / OBJ --- #
-SRC			=	main.cpp
+SRC			=	main.cpp Harl.cpp
 
 OBJ			=	${SRC:.cpp=.o}
 
