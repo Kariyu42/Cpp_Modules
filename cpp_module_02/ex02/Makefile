@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/23 19:59:19 by kquetat-          #+#    #+#              #
-#    Updated: 2024/01/24 18:38:17 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/01/24 19:02:46 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ endif
 	${CC} ${CFLAGS} -c $< -o $@
 
 # --- EXEC / RULES --- #
-NAME	=	usefulClass
+NAME	=	nowLetsTalk
 
 all:	${NAME}
 

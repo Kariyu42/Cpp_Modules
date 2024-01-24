@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:31:27 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/24 18:46:28 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/24 22:05:45 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,11 @@ std::ostream& operator<<(std::ostream& os, const Fixed& other) {
 }
 
 Fixed::Fixed(const float fValue) {
-	std::cout << "Float constructor called" << std::endl;
 	_value = roundf(fValue * (1 << _bits));
 	return ;
 }
 
 Fixed::Fixed(const int iValue) {
-	std::cout << "Int constructor called" << std::endl;
 	_value = iValue << _bits;
 	return ;
 }
@@ -47,23 +45,105 @@ void Fixed::setRawBits( int const raw ) {
 }
 
 Fixed& Fixed::operator=(const Fixed& other) {
-	std::cout << "Copy assignment operator called" << std::endl;
 	_value = other.getRawBits();
 	return *this;
 }
 
+bool	Fixed::operator>(const Fixed& other) const {
+	return _value > other.getRawBits();
+}
+
+bool	Fixed::operator<(const Fixed& other) const {
+	return _value < other.getRawBits();
+}
+
+bool	Fixed::operator>=(const Fixed& other) const {
+	return _value >= other.getRawBits();
+}
+
+bool	Fixed::operator<=(const Fixed& other) const {
+	return _value <= other.getRawBits();
+}
+
+bool	Fixed::operator==(const Fixed& other) const {
+	return _value == other.getRawBits();
+}
+
+bool	Fixed::operator!=(const Fixed& other) const {
+	return _value != other.getRawBits();
+}
+
+Fixed	Fixed::operator+(const Fixed& other) const {
+	return (Fixed(toFloat() + other.toFloat()));
+}
+
+Fixed	Fixed::operator-(const Fixed& other) const {
+	return (Fixed(toFloat() - other.toFloat()));
+}
+
+Fixed	Fixed::operator*(const Fixed& other) const {
+	return (Fixed(toFloat() * other.toFloat()));
+}
+
+Fixed	Fixed::operator/(const Fixed& other) const {
+	return (Fixed(toFloat() / other.toFloat()));
+}
+
+Fixed&	Fixed::operator++( void ) {
+	_value++;
+	return *this;
+}
+
+Fixed	Fixed::operator++( int ) {
+	Fixed postIncrem(*this);
+	postIncrem._value = _value++;
+	return postIncrem;
+}
+
+Fixed&	Fixed::operator--( void ) {
+	_value--;
+	return *this;
+}
+
+Fixed	Fixed::operator--( int ) {
+	Fixed postDecrem(*this);
+	postDecrem._value = _value--;
+	return postDecrem;
+}
+
+Fixed&	Fixed::min(Fixed& a, Fixed& b) {
+	if (a < b)
+		return a;
+	return b;
+}
+
+const Fixed& Fixed::min(const Fixed& a, const Fixed& b) {
+	if (a < b)
+		return a;
+	return b;
+}
+
+Fixed&	Fixed::max(Fixed& a, Fixed& b) {
+	if (a > b)
+		return a;
+	return b;
+}
+
+const Fixed& Fixed::max(const Fixed& a, const Fixed& b) {
+	if (a > b)
+		return a;
+	return b;
+}
+
 Fixed::Fixed(const Fixed& other) {
-	std::cout << "Copy constructor called" << std::endl;
 	*this = other;
 	return ;
 }
 
 Fixed::Fixed() : _value(0) {
-	std::cout << "Default constructor called" << std::endl;
 	return ;
 }
 
 Fixed::~Fixed() {
-	std::cout << "Destructor called" << std::endl;
 	return ;
 }
