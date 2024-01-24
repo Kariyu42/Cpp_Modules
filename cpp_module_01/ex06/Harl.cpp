@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 17:40:42 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/23 23:35:02 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/24 10:39:35 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 void	Harl::error( void ) {
 	std::cout << "[ ERROR ]" << std::endl;
-	std::cout << ERROR_MSG << std::endl;
+	std::cout << ERROR_MSG << std::endl << std::endl;
 	return ;
 }
 
 void	Harl::warning( void ) {
 	std::cout << "[ WARNING ]" << std::endl;
-	std::cout << WARNING_MSG << std::endl;
+	std::cout << WARNING_MSG << std::endl << std::endl;
 	return ;
 }
 
 void	Harl::info( void ) {
 	std::cout << "[ INFO ]" << std::endl;
-	std::cout << INFO_MSG << std::endl;
+	std::cout << INFO_MSG << std::endl << std::endl;
 	return ;
 }
 
 void	Harl::debug( void ) {
 	std::cout << "[ DEBUG ]" << std::endl;
-	std::cout << DEBUG_MSG << std::endl;
+	std::cout << DEBUG_MSG << std::endl << std::endl;
 	return ;
 }
 
