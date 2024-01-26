@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:05:31 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/23 23:31:24 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:16:37 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int main(int ac, char **av) {
 	}
 	std::string str2 = av[3];
 
-	std::ifstream file(fileName);
+	std::ifstream file(fileName.c_str());
 
 	if (!file.is_open()) {
 		std::cerr << "Error: can't open file." << std::endl;
