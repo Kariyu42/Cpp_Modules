@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Fixed.hpp                                          :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/24 16:19:54 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/27 19:21:47 by kquetat-         ###   ########.fr       */
+/*   Created: 2024/01/27 18:28:38 by kquetat-          #+#    #+#             */
+/*   Updated: 2024/01/27 19:09:38 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FIXED_HPP
-# define FIXED_HPP
+#include "ClapTrap.hpp"
 
-# include <iostream>
+int	main(void) {
+	ClapTrap	Opponent("Opponent");
+	ClapTrap	noName;
 
-class Fixed
-{
-	public:
-		Fixed();
-		Fixed(const Fixed& other);
-		~Fixed();
-		Fixed& operator=(const Fixed& other);
-
-		int		getRawBits( void ) const;
-		void	setRawBits( int const raw );
-	private:
-		int					_value;
-		static const int	_bits = 8;
-};
-
-#endif
+	for (int i = 0; i < 5; i++) {
+		Opponent.attack(noName.getName());
+		noName.takeDamage(2);
+		Opponent.beRepaired(2);
+	}
+}

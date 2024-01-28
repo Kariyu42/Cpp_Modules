@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:45:18 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/25 11:27:05 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/28 12:20:16 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int main( void ) {
 
 		std::cout << a << std::endl;
 		std::cout << ++a << std::endl;
-		std::cout << a << std::endl;
 		std::cout << a++ << std::endl;
 		std::cout << a << std::endl;
-		std::cout << b << std::endl;
-		std::cout << Fixed::max( a, b ) << std::endl;
+		std::cout << --a << std::endl;
+		std::cout << "max test : " << Fixed::max( a, b ) << std::endl;
+		std::cout << "min test : " << Fixed::min(a, b) << std::endl;
 	}
 	std::cout << std::endl;
 	/* --- my main --- */
@@ -46,6 +46,13 @@ int main( void ) {
 		std::cout << "sumFixed = " << sumFixed << std::endl;
 		std::cout << "sumFloat = " << sumFloat << std::endl;
 
+		Fixed test(42.42f);
+		Fixed test2(50);
+
+		if (test < test2)
+			std::cout << "test > test2" << std::endl;
+		test = test * test2;
+		std::cout << "test = " << test << std::endl;
 	}
 	return 0;
 }
