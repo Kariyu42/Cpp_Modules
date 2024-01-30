@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 18:39:33 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/30 11:52:07 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/29 13:11:50 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ ClapTrap::ClapTrap() : _name("X"), \
 					_energyPoints(10), \
 					_attackDamage(0)
 {
-	std::cout << PURPLE << "ClapTrap " << this->_name << ": is born !" << RESET << std::endl;
+	std::cout	<< PURPLE << "ClapTrap " \
+				<< this->_name << ": is born !" \
+				<< RESET << std::endl;
 	return ;
 }
 
@@ -26,7 +28,9 @@ ClapTrap::ClapTrap(std::string name) : _name(name), \
 										_energyPoints(10), \
 										_attackDamage(0)
 {
-	std::cout << PURPLE << "ClapTrap " << this->_name << ": is born !" << RESET << std::endl;
+	std::cout	<< PURPLE << "ClapTrap " \
+				<< this->_name << ": is born !" \
+				<< RESET << std::endl;
 	return ;
 }
 
@@ -35,18 +39,20 @@ ClapTrap::ClapTrap(ClapTrap const &copy) : _name(copy._name), \
 											_energyPoints(copy._energyPoints), \
 											_attackDamage(copy._attackDamage)
 {
-	std::cout << PURPLE << "ClapTrap " << this->_name << ": is born !" << RESET << std::endl;
+	std::cout	<< PURPLE << "ClapTrap " \
+				<< this->_name << ": is born !" \
+				<< RESET << std::endl;
 	return ;
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << CYAN << "ClapTrap " << this->_name << ": is dead !" << CYAN << std::endl;
+	std::cout	<< CYAN << "ClapTrap " \
+				<< this->_name << ": is dead !" \
+				<< RESET << std::endl;
 	return ;
 }
 
 ClapTrap	&ClapTrap::operator=(ClapTrap const &other) {
-	if (this == &other)
-		return (*this);
 	this->_name = other._name;
 	this->_hitPoints = other._hitPoints;
 	this->_energyPoints = other._energyPoints;
