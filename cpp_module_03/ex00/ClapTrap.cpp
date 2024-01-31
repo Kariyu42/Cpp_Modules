@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 18:39:33 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/30 11:52:07 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:34:19 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ ClapTrap::ClapTrap(ClapTrap const &copy) : _name(copy._name), \
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << CYAN << "ClapTrap " << this->_name << ": is dead !" << CYAN << std::endl;
+	std::cout << CYAN << "ClapTrap " << this->_name << ": is dead !" << RESET << std::endl;
 	return ;
 }
 
