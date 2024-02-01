@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:35:42 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/31 16:21:27 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/01 10:16:02 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ DiamondTrap::DiamondTrap() : ClapTrap("X_clap_name"), FragTrap(), ScavTrap() {
 	return ;
 }
 
-DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "clap_name"), FragTrap(name), ScavTrap(name) {
+DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), FragTrap(name), ScavTrap(name) {
 	this->_name = name;
 	this->_hitPoints = FragTrap::_hitPoints;
 	this->_energyPoints = ScavTrap::_energyPoints;
@@ -79,7 +79,7 @@ DiamondTrap	&DiamondTrap::operator=(DiamondTrap const &other) {
 	if (this == &other)
 		return (*this);
 	this->_name = other._name;
-	ClapTrap::_name = other._name + "clap_name";
+	ClapTrap::_name = other._name + "_clap_name";
 	this->_hitPoints = other._hitPoints;
 	this->_energyPoints = other._energyPoints;
 	this->_attackDamage = other._attackDamage;

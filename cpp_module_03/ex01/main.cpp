@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:28:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/30 12:01:03 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:09:27 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(void) {
 		Opponent.attack(noName.getName());
 		noName.takeDamage(Opponent.getAttackDamage());
 		noName.checkNewStatus();
+		noName.beRepaired(1);
 	}
 	return 0;
 }
