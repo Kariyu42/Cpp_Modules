@@ -1,41 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 17:18:13 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/02 11:30:31 by kquetat-         ###   ########.fr       */
+/*   Created: 2024/01/31 21:31:03 by kquetat-          #+#    #+#             */
+/*   Updated: 2024/02/02 10:50:59 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANIMAL_HPP
-# define ANIMAL_HPP
+#ifndef BRAIN_HPP
+# define BRAIN_HPP
 
 # include <iostream>
+# include <cstdlib>
 # include <new>
 
 # define RED "\033[0;31m"
-# define PURPLE "\033[0;35m"
-# define CYAN "\033[0;36m"
+# define GREEN "\033[0;32m"
+# define ROSE "\033[0;35m"
 # define RESET "\033[0m"
 
-class Animal
+# define NBR_IDEAS 100
+
+class Brain
 {
 	public:
-		Animal();
-		Animal(std::string type);
-		Animal(Animal const &copy);
-		virtual ~Animal();
-		Animal	&operator=(Animal const &other);
+		Brain();
+		Brain(std::string animalType);
+		Brain(Brain const &copy);
+		Brain	&operator=(Brain const &other);
+		~Brain();
 
-		std::string		getType( void ) const;
-		virtual void	makeSound( void ) const;
+		std::string	*getIdeas( void );
+		void		setIdeas( std::string ideas );
 
-		virtual void	printIdeas( void ) const;
-	protected:
-		std::string	_type;
+		void		putIdeas( void ) const;
+	private:
+		std::string	_ideas[NBR_IDEAS];
 };
 
 #endif

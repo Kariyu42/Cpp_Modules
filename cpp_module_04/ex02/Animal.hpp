@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 17:18:13 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/02 11:30:31 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/02 12:23:15 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class Animal
 		std::string		getType( void ) const;
 		virtual void	makeSound( void ) const;
 
-		virtual void	printIdeas( void ) const;
+		virtual void	printIdeas( void ) const = 0;
 	protected:
 		std::string	_type;
 };

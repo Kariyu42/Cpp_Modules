@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 17:18:13 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/02 11:30:31 by kquetat-         ###   ########.fr       */
+/*   Created: 2024/01/31 17:44:03 by kquetat-          #+#    #+#             */
+/*   Updated: 2024/02/02 11:04:33 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANIMAL_HPP
-# define ANIMAL_HPP
+#ifndef CAT_HPP
+# define CAT_HPP
 
 # include <iostream>
-# include <new>
+# include "Animal.hpp"
+# include "Brain.hpp"
 
-# define RED "\033[0;31m"
-# define PURPLE "\033[0;35m"
-# define CYAN "\033[0;36m"
+# define GREY "\033[38;2;128;128;128m"
 # define RESET "\033[0m"
 
-class Animal
+class Cat : public Animal
 {
 	public:
-		Animal();
-		Animal(std::string type);
-		Animal(Animal const &copy);
-		virtual ~Animal();
-		Animal	&operator=(Animal const &other);
+		Cat();
+		Cat(Cat const &copy);
+		Cat	&operator=(Cat const &other);
+		~Cat();
 
-		std::string		getType( void ) const;
-		virtual void	makeSound( void ) const;
-
-		virtual void	printIdeas( void ) const;
-	protected:
-		std::string	_type;
+		void	makeSound( void ) const;
+		void 	printIdeas( void ) const;
+	private:
+		Brain	*_brain;
 };
 
 #endif

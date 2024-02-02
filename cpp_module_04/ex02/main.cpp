@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 17:46:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/02 11:31:18 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/02 12:24:37 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int main( void )
 		delete animals[i];
 		animals[i] = NULL;
 	}
+	// Animal testAnimal; // error because Animal is abstract
 	return 0;
 }

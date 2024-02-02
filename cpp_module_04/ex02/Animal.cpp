@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 17:18:10 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/02 11:30:55 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/02 12:23:24 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ std::string	Animal::getType( void ) const {
 void	Animal::makeSound( void ) const {
 	std::cout	<< CYAN << "Animal " << this->_type \
 				<< " tries to make a sound but its vocal cords are not working !" \
-				<< RESET << std::endl;
-}
-
-void	Animal::printIdeas( void ) const {
-	std::cout	<< CYAN << "Animal " << this->_type \
-				<< " has no brain to think !" \
 				<< RESET << std::endl;
 }
 
