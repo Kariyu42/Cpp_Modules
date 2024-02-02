@@ -6,18 +6,18 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/31 17:16:32 by kquetat-          #+#    #+#              #
-#    Updated: 2024/01/31 21:28:55 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/02/02 09:29:56 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # --- SRC / OBJ --- #
-SRC			=	main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
+SRC			=	main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
 
 OBJ			=	${SRC:.cpp=.o}
 
 # --- COMPILER --- #
 CC			=	c++
-CFLAGS		=	-Wall -Wextra -Werror -std=c++98 #-pedantic
+CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic
 
 # --- DEBUG PURPOSES --- #
 ifdef	DEBUG
@@ -28,7 +28,7 @@ endif
 	${CC} ${CFLAGS} -c $< -o $@
 
 # --- EXEC / RULES --- #
-NAME	=	Animals
+NAME	=	Brain
 
 all:	${NAME}
 

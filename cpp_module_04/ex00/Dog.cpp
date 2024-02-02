@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 17:36:10 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/31 21:14:25 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/02 10:46:10 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ Dog::Dog() : Animal("Dog")
 	return ;
 }
 
-Dog::Dog(Dog const &copy) : Animal(copy)
+Dog::Dog(Dog const &copy) : Animal(copy._type)
 {
 	std::cout	<< BROWN << this->_type \
 				<< ": is created and wants to be hugged!" \

@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 17:44:38 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/31 21:13:46 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/02 10:46:02 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ Cat::Cat() : Animal("Cat")
 	return ;
 }
 
-Cat::Cat(Cat const &copy) : Animal(copy)
+Cat::Cat(Cat const &copy) : Animal(copy._type)
 {
 	std::cout	<< GREY << this->_type \
 				<< ": is created and is now INDEPENDANT!" \

@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 17:44:03 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/01/31 21:49:18 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/02 11:04:33 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ class Cat : public Animal
 		~Cat();
 
 		void	makeSound( void ) const;
+		void 	printIdeas( void ) const;
 	private:
-		Brain *_brain;
+		Brain	*_brain;
 };
 
 #endif
