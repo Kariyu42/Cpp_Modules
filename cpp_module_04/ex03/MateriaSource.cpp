@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:29:36 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/04 13:29:06 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:59:27 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ MateriaSource::~MateriaSource() {
 		}
 		this->_materias[i] = NULL;
 	}
+	// std::cout << "MateriaSource destructor called" << std::endl;
 	return ;
 }

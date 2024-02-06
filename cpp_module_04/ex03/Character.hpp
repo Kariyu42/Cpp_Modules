@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 11:55:07 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/04 18:00:21 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:26:16 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ class Character : public ICharacter
 		void				use(int idx, ICharacter &target);
 
 		AMateria			**updateGroundMateria( int idx );
+		void				showGroundMateria( void );
 	private:
 		std::string	_name;
 		AMateria	*_materias[MAX_MATERIAS];

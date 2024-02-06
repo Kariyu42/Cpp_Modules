@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 11:55:31 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/04 18:48:33 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:34:53 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,20 @@ AMateria	**Character::updateGroundMateria( int idx ) {
 	return newGroundMateria;
 }
 
+void	Character::showGroundMateria( void ) {
+	std::cout	<< YELLOW \
+				<< " === Ground materias === " \
+				<< RESET << std::endl;
+	for (size_t i = 0; i < this->_countGroundMateria; i++) {
+		std::cout	<< CYAN \
+					<< "Materia " << i << ": " \
+					<< this->_groundMateria[i]->getType() \
+					<< RESET << std::endl;
+	}
+	std::cout << YELLOW << "==========================" << std::endl;
+	return ;
+}
+
 void	Character::unequip(int idx) {
 	if (idx < 0 || idx >= MAX_MATERIAS || !this->_materias[idx]) {
 		std::cout	<< RED << "Error: Can't unequip materia at this index." \
@@ -64,8 +78,11 @@ void	Character::unequip(int idx) {
 		return ;
 	}
 	this->_groundMateria = this->updateGroundMateria(idx);
+	std::cout	<< BLUE << "Materia [" << RED << idx << BLUE << "] " \
+				<< RED << this->_materias[idx]->getType() << BLUE \
+				<< " has been unequipped." << RESET << std::endl;
 	this->_materias[idx] = NULL;
-	std::cout	<< BLUE << "Materia unequipped." << RESET << std::endl;
+	showGroundMateria();
 	return ;
 }
 
@@ -84,6 +101,8 @@ void	Character::equip(AMateria *m) {
 	for (i = 0; i < MAX_MATERIAS; i++) {
 		if (!this->_materias[i]) {
 			this->_materias[i] = m;
+			std::cout	<< BLUE << "Materia " << RED << m->getType() \
+						<< BLUE << " has been equipped." << RESET << std::endl;
 			break ;
 		}
 	}
@@ -123,8 +142,11 @@ Character::Character(Character const &copy) {
 		}
 	}
 	if (this->_groundMateria) {
-		for (size_t i = 0; _groundMateria[i] && i < _countGroundMateria; i++) {
-			delete _groundMateria[i];
+		for (size_t i = 0; i < _countGroundMateria; i++) {
+			if (this->_groundMateria[i]) {
+				delete this->_groundMateria[i];
+				this->_groundMateria[i] = NULL;
+			}
 		}
 		delete [] this->_groundMateria;
 	}
@@ -147,8 +169,11 @@ Character	&Character::operator=(Character const &other) {
 		}
 	}
 	if (this->_groundMateria) {
-		for (size_t i = 0; _groundMateria[i] && i < _countGroundMateria; i++) {
-			delete _groundMateria[i];
+		for (size_t i = 0; i < _countGroundMateria; i++) {
+			if (this->_groundMateria[i]) {
+				delete this->_groundMateria[i];
+				this->_groundMateria[i] = NULL;
+			}
 		}
 		delete [] this->_groundMateria;
 	}
@@ -158,21 +183,22 @@ Character	&Character::operator=(Character const &other) {
 }
 
 Character::~Character() {
+	// std::cout << RED << "Character " << this->_name << " is dead." << RESET << std::endl;
 	for (size_t i = 0; i < MAX_MATERIAS; i++) {
 		if (this->_materias[i]) {
 			delete this->_materias[i];
 			this->_materias[i] = NULL;
 		}
 	}
-	std::cout << RED << "Character " << this->_name << " is dead." << RESET << std::endl;
 	for (size_t i = 0; i < _countGroundMateria; i++) {
-		if (_groundMateria[i]) {
-			delete _groundMateria[i];
-			_groundMateria[i] = NULL;
+		if (this->_groundMateria[i]) {
+			delete this->_groundMateria[i];
+			this->_groundMateria[i] = NULL;
 		}
 	}
 	if (this->_groundMateria) {
 		delete [] this->_groundMateria;
+		this->_groundMateria = NULL;
 	}
 	return ;
 }

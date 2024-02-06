@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 11:41:35 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/03 11:45:28 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:59:53 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ Ice	&Ice::operator=(Ice const &other) {
 }
 
 Ice::~Ice() {
+	// std::cout << "Ice destructor called" << std::endl;
 	return ;
 }

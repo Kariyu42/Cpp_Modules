@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 11:46:19 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/03 16:35:19 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/06 14:00:00 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ Cure	&Cure::operator=(Cure const &other) {
 }
 
 Cure::~Cure() {
+	// std::cout << "Cure destructor called" << std::endl;
 	return ;
 }
