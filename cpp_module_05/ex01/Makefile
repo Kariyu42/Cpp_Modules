@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/06 18:25:31 by kquetat-          #+#    #+#              #
-#    Updated: 2024/02/06 19:26:32 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/02/09 14:27:39 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # --- SRC / OBJ --- #
-SRC			=	main.cpp Bureaucrat.cpp
+SRC			=	main.cpp Bureaucrat.cpp Form.cpp
 
 OBJ			=	${SRC:.cpp=.o}
 
