@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:02:56 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/09 18:24:53 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/09 18:37:00 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
 	file << "  .-' '        '-._______.-'     '  ." << std::endl;
 	file << "       .      ~," << std::endl;
 	file << "   .       .   |\\   .    ' '-." << std::endl;
-	file << "   ___________/  \____________" << std::endl;
+	file << "   ___________/  \\____________" << std::endl;
 	file << "  /  Why is it, when you want \\" << std::endl;
 	file << " |  something, it is so damn   |" << std::endl;
 	file << " |    much work to get it?     |" << std::endl;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/06 18:25:31 by kquetat-          #+#    #+#              #
-#    Updated: 2024/02/06 19:27:52 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/02/09 18:51:02 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJ			=	${SRC:.cpp=.o}
 
 # --- COMPILER --- #
 CC			=	c++
-CFLAGS		=	-Wall -Wextra -Werror -std=c++98 #-pedantic
+CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic
 
 # --- DEBUG PURPOSES --- #
 ifdef	DEBUG

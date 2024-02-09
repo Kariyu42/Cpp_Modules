@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:26:35 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/09 16:43:52 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/09 18:47:20 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ class Bureaucrat
 
 		void				checkGrade(int grade);
 		void				signForm(AForm &form);
+
+		void				executeForm(AForm const &form);
 
 		class GradeTooHighException : public std::exception {
 			public:

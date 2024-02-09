@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:26:30 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/09 16:18:20 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/09 18:50:02 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,27 @@ void	Bureaucrat::checkGrade(int grade) {
 	return ;
 }
 
-void	Bureaucrat::signForm(Form &form) {
+void	Bureaucrat::signForm(AForm &form) {
 	try {
 		form.beSigned(*this);
 	}
 	catch (std::exception &e) {
 		std::cout	<< YELLOW << this->_name << RESET << " couldn't sign " \
+					<< YELLOW << form.getName() << " because " \
+					<< RED << e.what() << std::endl;
+	}
+	return ;
+}
+
+void	Bureaucrat::executeForm(AForm const &form) {
+	try {
+		form.execute(*this);
+		std::cout	<< GREEN << this->_name << RESET \
+					<< " executed " << GREEN << form.getName() \
+					<< RESET << std::endl;
+	}
+	catch (std::exception &e) {
+		std::cout	<< YELLOW << this->_name << RESET << " couldn't execute " \
 					<< YELLOW << form.getName() << " because " \
 					<< RED << e.what() << std::endl;
 	}

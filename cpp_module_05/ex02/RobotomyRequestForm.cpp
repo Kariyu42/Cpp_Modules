@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:13:52 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/09 18:32:50 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/09 18:37:19 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	RobotomyRequestForm::execute(Bureaucrat const &executor) const {
 		std::cout	<< RED << _target << " robotomization failed" \
 					<< RESET << std::endl;
 	}
+	return ;
 }
 
 RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45), \
