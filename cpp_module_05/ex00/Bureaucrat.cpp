@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:26:30 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/08 15:06:28 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:05:50 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	Bureaucrat::getGrade() const {
 void	Bureaucrat::incrementGrade( void ) {
 	if (this->_grade == HIGHEST_GRADE) {
 		throw Bureaucrat::GradeTooHighException();
-		return ;
 	}
 	this->_grade--;
 	return ;
@@ -32,25 +31,24 @@ void	Bureaucrat::incrementGrade( void ) {
 void	Bureaucrat::decrementGrade( void ) {
 	if (this->_grade == LOWEST_GRADE) {
 		throw Bureaucrat::GradeTooLowException();
-		return ;
 	}
 	this->_grade++;
 	return ;
 }
 
 void	Bureaucrat::checkGrade(int grade) {
-	if (grade < LOWEST_GRADE)
+	if (grade > LOWEST_GRADE)
 		throw Bureaucrat::GradeTooLowException();
-	else if (grade > HIGHEST_GRADE)
+	else if (grade < HIGHEST_GRADE)
 		throw Bureaucrat::GradeTooHighException();
 	return ;
 }
 
-const char	*Bureaucrat::GradeTooHighException::what() const {
+const char	*Bureaucrat::GradeTooHighException::what() const throw() {
 	return "Grade is too high !";
 }
 
-const char	*Bureaucrat::GradeTooLowException::what() const {
+const char	*Bureaucrat::GradeTooLowException::what() const throw() {
 	return "Grade is too low !";
 }
 
@@ -58,7 +56,7 @@ Bureaucrat::Bureaucrat() : _name("X"), _grade(LOWEST_GRADE) {
 	return ;
 }
 
-Bureaucrat::Bureaucrat(std::string const name, int grade) : _name(name) {
+Bureaucrat::Bureaucrat(std::string const name, int grade) : _name(name), _grade(grade) {
 	this->checkGrade(grade);
 	return ;
 }
@@ -72,7 +70,12 @@ Bureaucrat::~Bureaucrat() {
 	return ;
 }
 
-std::ostream	&operator<<(std::ostream &os, const Bureaucrat &other) {
-	os << other;
-	return ;
+Bureaucrat	&Bureaucrat::operator=(Bureaucrat const &copy) {
+	this->_grade = copy._grade;
+	return *this;
+}
+
+std::ostream	&operator<<(std::ostream &os, const Bureaucrat &inst) {
+	os << inst.getName() << ", bureaucrat grade " << inst.getGrade();
+	return os;
 }

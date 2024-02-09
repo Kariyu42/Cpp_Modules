@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:26:35 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/08 14:37:47 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:36:26 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define GREEN "\033[1;32m"
 # define YELLOW "\033[1;33m"
 # define BLUE "\033[1;34m"
+# define MAGENTA "\033[1;35m"
 # define RESET "\033[0m"
 
 class Bureaucrat
@@ -58,6 +59,6 @@ class Bureaucrat
 		int					_grade;
 };
 
-std::ostream	&operator<<(std::ostream &os, const Bureaucrat &other);
+std::ostream	&operator<<(std::ostream &os, const Bureaucrat &inst);
 
 #endif
