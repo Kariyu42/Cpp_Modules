@@ -3,21 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/06 18:25:31 by kquetat-          #+#    #+#              #
-#    Updated: 2024/02/06 19:28:18 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/02/10 16:39:43 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # --- SRC / OBJ --- #
-SRC			=	main.cpp Bureaucrat.cpp
+SRC			=	main.cpp Bureaucrat.cpp \
+				AForm.cpp ShrubberyCreationForm.cpp \
+				RobotomyRequestForm.cpp PresidentialPardonForm.cpp \
+				Intern.cpp
 
 OBJ			=	${SRC:.cpp=.o}
 
 # --- COMPILER --- #
 CC			=	c++
-CFLAGS		=	-Wall -Wextra -Werror -std=c++98 #-pedantic
+CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic
 
 # --- DEBUG PURPOSES --- #
 ifdef	DEBUG
@@ -28,7 +31,7 @@ endif
 	${CC} ${CFLAGS} -c $< -o $@
 
 # --- EXEC / RULES --- #
-NAME	=	RobotomyRequestForm
+NAME	=	Intern
 
 all:	${NAME}
 
