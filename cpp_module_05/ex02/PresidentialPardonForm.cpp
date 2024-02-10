@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 18:39:41 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/09 18:43:50 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/10 13:45:39 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	PresidentialPardonForm::execute(Bureaucrat const &executor) const {
 	else if (executor.getGrade() > getGradeToExecute()) {
 		throw GradeTooLowException();
 	}
-	std::cout	<< _target << BLUE << " has been pardoned by Zafod Beeblebrox" \
+	std::cout	<< _target << ":" << BLUE << " has been pardoned by Zafod Beeblebrox" \
 				<< RESET << std::endl;
 	return ;
 }

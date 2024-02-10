@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:02:56 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/09 18:37:00 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/10 13:44:06 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	ShrubberyCreationForm::execute(Bureaucrat const &executor) const {
 	file << " |    much work to get it?     |" << std::endl;
 	file << "  \\___________________________/" << std::endl;
 	file.close();
+	std::cout	<< GREEN << "Shrubbery has been created in " \
+				<< CYAN << filename << RESET << std::endl;
 	return ;
 }
 

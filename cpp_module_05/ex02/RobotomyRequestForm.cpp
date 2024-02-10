@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 17:13:52 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/09 18:37:19 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/10 14:05:41 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	RobotomyRequestForm::execute(Bureaucrat const &executor) const {
 		throw GradeTooLowException();
 	}
 	std::cout << "* Drilling noises *" << std::endl;
-	if (rand() % 2) {
+	srand((unsigned) time(NULL));
+	int		rand = std::rand() % 2;
+	if (rand == 0) {
 		std::cout	<< GREEN << _target << " has been robotomized successfully" \
 					<< RESET << std::endl;
 	}

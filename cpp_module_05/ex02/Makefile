@@ -6,12 +6,12 @@
 #    By: kquetat- <kquetat-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/06 18:25:31 by kquetat-          #+#    #+#              #
-#    Updated: 2024/02/09 18:51:02 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/02/10 13:41:44 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # --- SRC / OBJ --- #
-SRC			=	main.cpp Bureaucrat.cpp
+SRC			=	main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp
 
 OBJ			=	${SRC:.cpp=.o}
 
@@ -43,6 +43,7 @@ clean:
 
 fclean:	clean
 	rm -f ${NAME}
+	rm -f shrub_shrubbery
 
 re:	fclean
 	${MAKE} all
