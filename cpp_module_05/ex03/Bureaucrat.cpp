@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 18:26:30 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/11 15:32:18 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:37:59 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ Bureaucrat::Bureaucrat(std::string const name, int grade) : _name(name), _grade(
 	return ;
 }
 
-Bureaucrat::Bureaucrat(Bureaucrat const &copy) {
+Bureaucrat::Bureaucrat(Bureaucrat const &copy) : _name(copy._name) {
 	*this = copy;
 	return ;
 }
