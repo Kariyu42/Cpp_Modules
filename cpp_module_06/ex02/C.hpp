@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:14:51 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/11 18:15:07 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:28:55 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "Base.hpp"
 
-class C : public Base
-{
-	
-};
+class C : public Base {};
 
 #endif

@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/06 18:25:31 by kquetat-          #+#    #+#              #
-#    Updated: 2024/02/11 15:32:49 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/02/13 18:59:14 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJ			=	${SRC:.cpp=.o}
 
 # --- COMPILER --- #
 CC			=	c++
-CFLAGS		=	-Wall -Wextra -Werror -std=c++98 -pedantic
+CFLAGS		=	-Wall -Wextra -Werror -std=c++98 #-pedantic
 
 # --- DEBUG PURPOSES --- #
 ifdef	DEBUG

@@ -6,12 +6,12 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/11 15:41:19 by kquetat-          #+#    #+#              #
-#    Updated: 2024/02/11 18:18:11 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/02/14 18:17:37 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # --- SRC / OBJ --- #
-SRC			=	main.cpp Serializer.cpp
+SRC			=	main.cpp Base.cpp
 
 OBJ			=	${SRC:.cpp=.o}
 
