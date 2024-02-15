@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 11:44:45 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/11 17:07:45 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:27:42 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ void	ScalarConverter::convertToFloat(std::string &literal) {
 	std::istringstream	iss(literal);
 
 	iss >> f;
-	if (iss.fail()) {
-		iss.clear();
-		iss.seekg(0);
-		std::cout	<< "float: " << "impossible" << std::endl;
-		return ;
-	}
+	// if (iss.fail()) {
+	// 	iss.clear();
+	// 	iss.seekg(0);
+	// 	std::cout	<< "float: " << "impossible" << std::endl;
+	// 	return ;
+	// }
 
 	std::cout	<< "float: " << std::setprecision(10) << f;
 
@@ -137,12 +137,12 @@ void	ScalarConverter::convertToDouble(std::string &literal) {
 	std::istringstream	iss(literal);
 
 	iss >> d;
-	if (iss.fail()) {
-		iss.clear();
-		iss.seekg(0);
-		std::cout	<< "double: " << "impossible" << std::endl;
-		return ;
-	}
+	// if (iss.fail()) {
+	// 	iss.clear();
+	// 	iss.seekg(0);
+	// 	std::cout	<< "double: " << "impossible" << std::endl;
+	// 	return ;
+	// }
 	
 	std::cout	<< "double: " << std::setprecision(10) << d;
 	
