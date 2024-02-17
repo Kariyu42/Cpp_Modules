@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 21:11:02 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/17 15:15:28 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/17 15:20:05 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ class Span
 		void				addNNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end);
 		int					shortestSpan( void );
 		int					longestSpan( void );
-
 
 		std::vector<int>	getVector( void ) const;
 
