@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 22:52:10 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/18 13:43:30 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/19 11:57:13 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 int	handleInput(int ac, char **av)
 {
 	if (ac != 2) {
-		std::cout	<< RED << "Error: " << "Usage: " << av[0] \
-					<< " <filename>" << RESET << std::endl;
+		std::cout	<< RED << "Error: could not open file" \
+					<< RESET << std::endl;
 		return 1;
 	}
 
 	std::string arg = av[1];
 	if (arg.empty()) {
-		std::cout	<< RED << "Error: " << "Filename is empty" << RESET << std::endl;
+		std::cout	<< RED << "Error: " << arg << " is empty" << RESET << std::endl;
 		return 1;
 	}
 
@@ -39,9 +39,6 @@ int	handleInput(int ac, char **av)
 		return 1;
 	}
 
-	std::cout	<< GREEN UNDERLINE "File " << arg << " opened successfully" \
-				<< RESET << std::endl;
-
 	return 0;
 }
 
@@ -55,6 +52,7 @@ int main(int ac, char **av)
 
 		btcExchange.initData("data.csv");
 		btcExchange.showExchange(av[1]);
+
 	} catch (std::exception &e) {
 		std::cerr	<< RED << "Error: " << e.what() << RESET << std::endl;
 		return 1;

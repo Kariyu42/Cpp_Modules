@@ -6,19 +6,19 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 23:25:25 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/18 21:38:53 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/19 11:56:57 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange( void ) : _data() {
-	std::cout << UNDERLINE YELLOW "BitcoinExchange created" << RESET << std::endl;
+	// std::cout << UNDERLINE YELLOW "BitcoinExchange created" << RESET << std::endl;
 	return ;
 }
 
 BitcoinExchange::BitcoinExchange(BitcoinExchange const &copy) : _data(copy._data) {
-	std::cout << UNDERLINE CYAN "BitcoinExchange copied" << RESET << std::endl;
+	// std::cout << UNDERLINE CYAN "BitcoinExchange copied" << RESET << std::endl;
 	return ;
 }
 
@@ -26,24 +26,28 @@ BitcoinExchange	&BitcoinExchange::operator=(BitcoinExchange const &copy)
 {
 	if (this != &copy)
 		this->_data = copy._data;
-	std::cout << UNDERLINE LIGHT_GREEN "BitcoinExchange assigned" << RESET << std::endl;
+	// std::cout << UNDERLINE LIGHT_GREEN "BitcoinExchange assigned" << RESET << std::endl;
 	return *this;
 }
 
 BitcoinExchange::~BitcoinExchange( void ) {
-	std::cout << UNDERLINE MAGENTA "BitcoinExchange destroyed" << RESET << std::endl;
+	// std::cout << UNDERLINE MAGENTA "BitcoinExchange destroyed" << RESET << std::endl;
 	return ;
 }
 
 double	BitcoinExchange::_strToDouble(std::string const &str) {
 	double	result;
-	std::istringstream(str) >> result;
+	std::istringstream	iss(str);
+	iss >> result;
+	if (iss.fail() || !iss.eof())
+		throw DataReadException();
 	return result;
 }
 
 int	BitcoinExchange::_strToInt(std::string const &str) {
 	int	result;
-	std::istringstream(str) >> result;
+	std::istringstream	iss(str);
+	iss >> result;
 	return result;
 }
 
@@ -56,31 +60,33 @@ const char	*BitcoinExchange::CloseFileException::what() const throw() {
 }
 
 void	BitcoinExchange::initData(std::string const &filename) {
-	std::ifstream file(filename.c_str());
+	//* 1st step: open file *//
+	std::ifstream	file(filename.c_str());
 	if (!file.is_open())
 		throw DataReadException();
 
-	std::string line;
-	std::string date = "";
-	std::string exchange_rate = "";
+	//* 2nd step: read file *//
+	std::string	line;
 	std::getline(file, line);
 	if (line != "date,exchange_rate")
 		throw DataReadException();
 
+	//* 3rd step: parse file *//
 	while (std::getline(file, line)) {
-		if (line.empty() || line.find(',') == std::string::npos)
+		size_t	sep = line.find(','); //* find separator *//
+		if (sep == std::string::npos) //! if no separator found //
 			throw DataReadException();
-		date = line.substr(0, line.find(','));
-		exchange_rate = line.substr(line.find(',') + 1);
-		if (date.empty() || exchange_rate.empty())
+		std::string	date = line.substr(0, sep); //* get date *//
+		std::string	exchange_rate = line.substr(sep + 1); //* get exchange rate *//
+		if (date.empty() || exchange_rate.empty()) //* check if date and exchange rate are not empty *//
 			throw DataReadException();
-		else if (date.length() != 10 || date[4] != '-' || date[7] != '-')
+		if (date.length() != 10 || date[4] != '-' || date[7] != '-') //* check date format *//
 			throw DataReadException();
-		for (size_t i = 0; i < exchange_rate.length(); i++) {
+		for (size_t i = 0; i < exchange_rate.length(); i++) { //* check exchange rate format *//
 			if (!std::isdigit(exchange_rate[i]) && exchange_rate[i] != '.')
 				throw DataReadException();
 		}
-		_data.insert(std::pair<std::string, double>(date, _strToDouble(exchange_rate)));
+		_data.insert(std::pair<std::string, double>(date, _strToDouble(exchange_rate))); //* insert date and exchange rate in map *//
 	}
 	file.close();
 	if (file.is_open())
@@ -90,7 +96,7 @@ void	BitcoinExchange::initData(std::string const &filename) {
 }
 
 bool	BitcoinExchange::validDate(std::string const &date) {
-	if (date.length() != 11 || date[4] != '-' || date[7] != '-')
+	if (date.length() != 10 || date[4] != '-' || date[7] != '-')
 		return false;
 	int	year = _strToInt(date.substr(0, 4));
 	int	month = _strToInt(date.substr(5, 2));
@@ -109,8 +115,8 @@ bool	BitcoinExchange::validDate(std::string const &date) {
 }
 
 double	BitcoinExchange::_getRateResult(std::string const &date) {
-
 	std::map<std::string, double>::iterator	it = _data.lower_bound(date);
+
 	if (it == _data.begin() && date < it->first) {
 		return it->second;
 	}
@@ -120,49 +126,40 @@ double	BitcoinExchange::_getRateResult(std::string const &date) {
 }
 
 void	BitcoinExchange::showExchange(std::string const &filename) {
-	if (_data.empty())
-		throw DataReadException();
 
-	std::ifstream file(filename.c_str());
+	//* 1st step: open file *//
+	std::ifstream	file(filename.c_str());
 	if (!file.is_open())
 		throw DataReadException();
-	std::string line;
-	std::string date = "";
-	std::string value = "";
+
+	//* 2nd step: read file *//
+	std::string	line;
 	std::getline(file, line);
 	if (line != "date | value")
 		throw DataReadException();
+	
 	while (std::getline(file, line)) {
-		if (line.empty())
-			continue ;
-		if (line.find('|') == std::string::npos) {
+		size_t	sep = line.find('|');
+		if (sep == std::string::npos) {
 			std::cout	<< RED UNDERLINE "Error:" << RESET \
 						<< RED " bad input => " << line << RESET << std::endl;
 			continue ;
 		}
-		date = line.substr(0, line.find('|'));
-		value = line.substr(line.find('|') + 1);
-		if (date.empty() || value.empty()) {
-			std::cout	<< RED UNDERLINE "Error:" << RESET \
-						<< RED " bad input => empty date or value." << RESET << std::endl;
-			continue ;
-		}
-		
-		if (!this->validDate(date)) {
+		std::string	date = line.substr(0, sep - 1);
+		if (!validDate(date)) {
 			std::cout	<< RED UNDERLINE "Error:" << RESET \
 						<< RED " bad input => " << date << RESET << std::endl;
 			continue ;
 		}
-
-		//* check if value is a number (can be positive or negative, can be double) *//
-		for (size_t i = 0; i < value.length(); i++) {
-			if (!std::isdigit(value[i]) && value[i] != '.' && value[i] != '-') {
-				std::cout	<< RED UNDERLINE "Error:" << RESET \
-							<< RED " bad input => " << value << RESET << std::endl;
-				continue ;
-			}
+		std::string	value = line.substr(sep + 1);
+		try {
+			double val = _strToDouble(value);
+			(void)val;
+		} catch (std::exception &e) {
+			std::cout	<< RED UNDERLINE "Error:" << RESET \
+						<< RED " bad input => " << line << RESET << std::endl;
+			continue ;
 		}
-
 		double	val = _strToDouble(value);
 		if (val < 0) {
 			std::cout	<< RED UNDERLINE "Error:" << RESET \
@@ -176,10 +173,12 @@ void	BitcoinExchange::showExchange(std::string const &filename) {
 						<< RESET << std::endl;
 			continue ;
 		}
-
 		double	result = _getRateResult(date);
-		std::cout	<< YELLOW << date << "=>" << value << " = " \
-					<< RESET << result * val << std::endl;
+		std::cout	<< CYAN << date << " =>" << value << " = " \
+					<< RESET << GREEN << result * val << RESET << std::endl;
 	}
+	file.close();
+	if (file.is_open())
+		throw CloseFileException();
 	return ;
 }
