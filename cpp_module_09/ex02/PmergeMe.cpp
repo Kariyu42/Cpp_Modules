@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/21 11:03:53 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/21 11:55:52 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeListSort(0) {
 		this->_vectorContainer.push_back(_strToInt(av[i]));
 		this->_listContainer.push_back(_strToInt(av[i]));
 	}
-	//* Displaye one of the containers *//
+	//* Display one of the containers *//
 	std::cout	<< YELLOW "Before: " RESET;
 	_displayContainer(this->_vectorContainer);
 	//* sort the list container and the vector container using the Ford-Johnson Merge Sort algorithm *//
@@ -106,14 +106,23 @@ std::vector<std::vector<int> >	PmergeMe::createPairs(std::vector<int> &container
 
 bool	PmergeMe::ComparePairs::operator()(std::vector<int> &a, std::vector<int> &b) {
 	//* compare the the highest value of each pair *//
-	return a.back() < b.back();
+	return a.back() < b.back(); // if a is smaller than b, return true
+	//* std::sort will sort the pairs in ascending order *//
 }
 
 void	PmergeMe::sortPairs(std::vector<std::vector<int> > &pairs) {
-	//* sort the pair sequence by its greater value *//
-	//* e.g. vector_pairs = [[3,7] [1,5] [2,6] [4,8]] *//
-	//* after sorting: [[1,5] [2,6] [3,7] [4,8]] *//
-	std::sort(pairs.begin(), pairs.end(), ComparePairs());
+	
+	std::vector<std::vector<int> >::iterator	it = pairs.begin();
+	std::vector<std::vector<int> >::iterator	ite = pairs.end();
+	for (; it != ite; it++) {
+		std::vector<std::vector<int> >::iterator	it2 = it + 1;
+		std::vector<std::vector<int> >::iterator	ite2 = pairs.end();
+		for (; it2 != ite2; it2++) {
+			if ((*it).back() > (*it2).back()) {
+				std::swap(*it, *it2);
+			}
+		}
+	}
 }
 
 double	PmergeMe::_vectorSort(std::vector<int> &container) {
@@ -131,7 +140,9 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	std::vector<std::vector<int> >::iterator	it = pairs.begin();
 	std::vector<std::vector<int> >::iterator	ite = pairs.end();
 	for (; it != ite; it++) {
-		std::sort(it->begin(), it->end());
+		if ((*it).front() > (*it).back()) {
+			std::swap((*it).front(), (*it).back());
+		}
 	}
 	//* sort the pair sequence by its greater value *//
 	this->sortPairs(pairs);
