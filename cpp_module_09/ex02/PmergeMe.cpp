@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/20 20:49:00 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/21 11:03:53 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,32 @@ int	PmergeMe::_strToInt(std::string str) {
 	return n;
 }
 
+std::vector<std::vector<int> >	PmergeMe::createPairs(std::vector<int> &container) {
+	std::vector<std::vector<int> >	pairs;
+	std::vector<int>::iterator		it = container.begin();
+	std::vector<int>::iterator		ite = container.end();
+	for (; it != ite; it++) {
+		std::vector<int>	pair;
+		pair.push_back(*it);
+		it++;
+		pair.push_back(*it);
+		pairs.push_back(pair);
+	}
+	return pairs;
+}
+
+bool	PmergeMe::ComparePairs::operator()(std::vector<int> &a, std::vector<int> &b) {
+	//* compare the the highest value of each pair *//
+	return a.back() < b.back();
+}
+
+void	PmergeMe::sortPairs(std::vector<std::vector<int> > &pairs) {
+	//* sort the pair sequence by its greater value *//
+	//* e.g. vector_pairs = [[3,7] [1,5] [2,6] [4,8]] *//
+	//* after sorting: [[1,5] [2,6] [3,7] [4,8]] *//
+	std::sort(pairs.begin(), pairs.end(), ComparePairs());
+}
+
 double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	struct timeval	start, end;
 	gettimeofday(&start, NULL);
@@ -99,20 +125,16 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 		int	last = container.back();
 		container.pop_back();
 	}
-	//* sort the pair of elements bitwise that are next to each other *//
-	for (size_t i = 0; i < container.size(); i += 2) {
-		if (container[i] > container[i + 1]) {
-			std::swap(container[i], container[i + 1]);
-		}
+	//* create pairs *//
+	std::vector<std::vector<int> >	pairs = this->createPairs(container);
+	//* sort each pair *//
+	std::vector<std::vector<int> >::iterator	it = pairs.begin();
+	std::vector<std::vector<int> >::iterator	ite = pairs.end();
+	for (; it != ite; it++) {
+		std::sort(it->begin(), it->end());
 	}
 	//* sort the pair sequence by its greater value *//
-	for (size_t i = 2; i < container.size(); i += 4) {
-		while (i < container.size() && container[i] < container[i + 2]) {
-			std::swap(container[i], container[i + 2]);
-			std::swap(container[i + 1], container[i + 3]);
-			i += 2;
-		}
-	}
+	this->sortPairs(pairs);
 }
 
 PmergeMe	&PmergeMe::operator=(PmergeMe const &pmergeMe) {

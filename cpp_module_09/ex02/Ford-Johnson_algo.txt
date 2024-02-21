@@ -1,0 +1,63 @@
+
+* Step 1: ‘Straggler’ Catching
+* In order to determine if the given array is even or odd, the operation
+* requires a simple modulo calculation. This is performed within the body
+* of ‘merge_insertion_sort’ against the incoming array and is saved as a boolean value.
+* If the operation proves it’s an odd-number length array, we ‘pop’ the last value
+* from the incoming array arbitrarily and save it into a local value. If we find it’s
+* even, we set the value to ‘False’. We’ll use this value later during ‘create_s’ as an
+* optional parameter where it will be placed in the ultimately sorted array.
+
+TODO: Step 2: Creating Pairs
+* In order to structure the data to follow FJMI, the values in the array need to be
+* arbitrarily sorted into pairs. We do this by using ‘create_pairs’, which loops through
+* the value, and using temporary array stores, creates ‘pairs’ with two element arrays
+* which are inserted into a larger array that is returned.
+
+TODO: Step 3: Sorting each pair
+* Once the array we need to sort is paired, we use ‘sort_each_pair’ and pass in
+* the paired array. This function loops through the pairs, and does a simple bitwise
+* comparison placing the smaller number on the left and the larger on the right, and
+* returns the array to the user.
+
+TODO: Step 4: Sort the Pair Sequence by its greater value
+* The next step in FJMI is to recursively sort all the pairs by their largest element.
+* In this implementation, we use ‘sort_by_larger_value’, which receives the array
+* (which has already been split into pairs, and each pair sorted itself) and uses a
+* modified recursive insertion sort (using functions ‘insertion_sort_pairs’ and ‘insert’)
+* that perform this action. This leaves the array sorted by the greater value in each pair.
+
+TODO: Steps 5-9: Creating sorted ‘S’ sequence
+* The following steps contain the most complex aspects of FJMI. In this implementation,
+* these steps are housed in ‘create_s’, which takes the array output by
+* ‘sort_by_larger_value’ and the previous steps, as well as the ‘straggler’ value mentioned
+* in step one if applicable, and returns the completed sorted sequence.
+
+* The function first creates the ‘main’ array (we call it ‘S’) which we will eventually
+* return, as well as ‘pend’, which will be a temporary hold used during FJMI. After
+* creating both empty arrays,, it loops through the incoming paired array, placing the larger
+* values (which have been sorted) into ‘S’, and the remaining smaller elements into ‘pend’.
+
+* Immediately, since we know the first element in ‘pend’ ( we call it: ‘p1’) is smaller than
+* the first element in the ‘S’ array (‘s1’), we insert it in the ‘0’ index of S.
+
+* After this step, we have to create the sequence in which we can optimally insert the
+* remaining ‘pend’ elements in a sequence that leverages the fact that in a worst-case
+* scenario, binary search performs best when the sub-sequence searched is one-less than the
+* power of two. As Knuth discovered, the pattern here corresponds with Jacobsthal
+* numbers -- a sequence we’ll build with ‘build_jacob_insertion_sequence’.
+
+* This function takes the ‘pend’ array, and using it’s length, leverages a recursive
+* Jacobsthal generation function ‘jacobsthal’, builds and returns an array of the relevant
+* Jacobsthal numbers which will be used to build the full insertion sequence.
+
+* The sequence commences by looping through the ‘pend’ array, dynamically determining the
+* full sequence (it must use the Jacobsthal numbers, filled in with the remaining values
+* depending on context), subsequently determining the exact insertion point and finally
+* inserting each value into S, taking advantage of the above key efficiency in FJMI. This
+* sequence begins to look like [1, 3, 2, 5, 4, 11…], continuing on with depending on the
+* length on the ‘pend’ array.
+
+* Finally, if a ‘straggler’ was passed into this function, we perform a binary search against
+* the entire ‘S’ sequence and insert it into S as well, before returning the final sorted
+* array.
