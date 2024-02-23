@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/21 11:49:20 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:53:31 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ class PmergeMe
 		bool					checkArgs(int ac, char **av);
 		std::vector<std::vector<int> >		createPairs(std::vector<int> &container);
 		void					sortPairs(std::vector<std::vector<int> > &pairs);
-
+		void					throwValues(std::vector<std::vector<int> > &pairs, std::vector<int> &container);
+		std::vector<int>		initSequence(size_t size);
 	private:
 		PmergeMe( void );
 
@@ -64,11 +65,6 @@ class PmergeMe
 
 		int						_strToInt(std::string str);
 		void					_displayContainer(std::vector<int> container);
-
-		//* Implementation of a functor to compare pairs *//
-		struct ComparePairs {
-			bool operator()(std::vector<int> &a, std::vector<int> &b);
-		};
 
 };
 
