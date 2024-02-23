@@ -61,3 +61,15 @@ TODO: Steps 5-9: Creating sorted ‘S’ sequence
 * Finally, if a ‘straggler’ was passed into this function, we perform a binary search against
 * the entire ‘S’ sequence and insert it into S as well, before returning the final sorted
 * array.
+
+/*
+* Pour réaliser les étapes 5 à 9 de l'algorithme Ford-Johnson pour créer une séquence S
+* triée, vous devez d'abord séparer les valeurs les plus grandes (déjà triées) des paires
+* dans un nouveau tableau S et les plus petites dans un tableau temporaire pend. Insérez
+* ensuite la première valeur de pend au début de S, car elle est plus petite que le premier
+* élément de S. Après, utilisez les nombres de Jacobsthal pour déterminer la séquence
+* d'insertion optimale dans S, en tirant parti de l'efficacité du tri binaire dans le pire
+* des cas. Enfin, si un "straggler" existe, insérez-le dans S en utilisant une recherche
+* binaire pour trouver sa position correcte. Ce processus complexe vise à minimiser les
+* comparaisons nécessaires pour trier l'ensemble des données.
+*/

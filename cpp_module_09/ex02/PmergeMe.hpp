@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/22 12:53:31 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/23 18:02:07 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,6 @@ class PmergeMe
 				virtual const char	*what() const throw();
 		};
 
-		bool					checkArgs(int ac, char **av);
-		std::vector<std::vector<int> >		createPairs(std::vector<int> &container);
-		void					sortPairs(std::vector<std::vector<int> > &pairs);
-		void					throwValues(std::vector<std::vector<int> > &pairs, std::vector<int> &container);
-		std::vector<int>		initSequence(size_t size);
 	private:
 		PmergeMe( void );
 
@@ -66,6 +61,11 @@ class PmergeMe
 		int						_strToInt(std::string str);
 		void					_displayContainer(std::vector<int> container);
 
+		bool					checkArgs(int ac, char **av);
+		std::vector<std::vector<int> >		createPairs(std::vector<int> &container);
+		void					_sortPairs(std::vector<std::vector<int> > &pairs);
+		void					throwValues(std::vector<std::vector<int> > &pairs, std::vector<int> &container);
+		std::vector<int>		initSequence(size_t size);
 };
 
 #endif

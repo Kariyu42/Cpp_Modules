@@ -6,44 +6,11 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/22 14:18:20 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/23 18:07:53 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
-
-PmergeMe::PmergeMe() {return ;}
-
-PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeListSort(0) {
-	if (checkArgs(ac, av) == false) {
-		throw InvalidArgument();
-	}
-	//* once the arguments are checked, we can fill the containers *//
-	for (int i = 1; i < ac; i++) {
-		this->_vectorContainer.push_back(_strToInt(av[i]));
-		this->_listContainer.push_back(_strToInt(av[i]));
-	}
-	//* Display one of the containers *//
-	std::cout	<< YELLOW "Before: " RESET;
-	_displayContainer(this->_vectorContainer);
-	//* sort the list container and the vector container using the Ford-Johnson Merge Sort algorithm *//
-	this->_timeVectorSort = _vectorSort(this->_vectorContainer);
-	this->_timeListSort = _listSort(this->_listContainer);
-	return ;
-}
-
-PmergeMe::PmergeMe(PmergeMe const &pmergeMe) : _vectorContainer(pmergeMe._vectorContainer), \
-												_listContainer(pmergeMe._listContainer), \
-												_timeVectorSort(pmergeMe._timeVectorSort), \
-												_timeListSort(pmergeMe._timeListSort) {
-	return ;
-}
-
-PmergeMe::~PmergeMe() {return ;}
-
-const char	*PmergeMe::InvalidArgument::what() const throw() {
-	return "Exception caught: Invalid argument.";
-}
 
 void	PmergeMe::_displayContainer(std::vector<int> container) {
 	std::vector<int>::iterator	it = container.begin();
@@ -104,10 +71,18 @@ std::vector<std::vector<int> >	PmergeMe::createPairs(std::vector<int> &container
 	return pairs;
 }
 
-void	PmergeMe::sortPairs(std::vector<std::vector<int> > &pairs) {
-	
+void	PmergeMe::_sortPairs(std::vector<std::vector<int> > &pairs) {
+
 	std::vector<std::vector<int> >::iterator	it = pairs.begin();
 	std::vector<std::vector<int> >::iterator	ite = pairs.end();
+	for (; it != ite; it++) {
+		if ((*it).front() > (*it).back()) {
+			std::swap((*it).front(), (*it).back());
+		}
+	}
+
+	it = pairs.begin();
+
 	for (; it != ite; it++) {
 		std::vector<std::vector<int> >::iterator	it2 = it + 1;
 		std::vector<std::vector<int> >::iterator	ite2 = pairs.end();
@@ -117,6 +92,8 @@ void	PmergeMe::sortPairs(std::vector<std::vector<int> > &pairs) {
 			}
 		}
 	}
+
+	return ;
 }
 
 void	PmergeMe::throwValues(std::vector<std::vector<int> > &pairs, std::vector<int> &container) {
@@ -138,39 +115,24 @@ std::vector<int>	PmergeMe::initSequence(size_t size) {
 	return jacobsthal;
 }
 
-/*
-* Pour réaliser les étapes 5 à 9 de l'algorithme Ford-Johnson pour créer une séquence S
-* triée, vous devez d'abord séparer les valeurs les plus grandes (déjà triées) des paires
-* dans un nouveau tableau S et les plus petites dans un tableau temporaire pend. Insérez
-* ensuite la première valeur de pend au début de S, car elle est plus petite que le premier
-* élément de S. Après, utilisez les nombres de Jacobsthal pour déterminer la séquence
-* d'insertion optimale dans S, en tirant parti de l'efficacité du tri binaire dans le pire
-* des cas. Enfin, si un "straggler" existe, insérez-le dans S en utilisant une recherche
-* binaire pour trouver sa position correcte. Ce processus complexe vise à minimiser les
-* comparaisons nécessaires pour trier l'ensemble des données.
-*/
-
 double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	struct timeval	start, end;
+
 	gettimeofday(&start, NULL);
+
 	if (container.size() % 2 != 0) {
-		int	last = container.back();
+		int	straggler = container.back();
 		container.pop_back();
 	}
-	std::vector<std::vector<int> >	pairs = this->createPairs(container);
 
-	std::vector<std::vector<int> >::iterator	it = pairs.begin();
-	std::vector<std::vector<int> >::iterator	ite = pairs.end();
-	for (; it != ite; it++) {
-		if ((*it).front() > (*it).back()) {
-			std::swap((*it).front(), (*it).back());
-		}
-	}
-	this->sortPairs(pairs);
+	std::vector<std::vector<int> >	pairs = this->createPairs(container);
+	this->_sortPairs(pairs);
+
 	std::vector<int>	bigSorted;
 	std::vector<int>	smallSorted;
 	this->throwValues(pairs, bigSorted);
 	this->throwValues(pairs, smallSorted);
+
 	bigSorted.insert(bigSorted.begin(), smallSorted.front());
 	//* Jacobsthal numbers *//
 	std::vector<int>	jacobsthal = initSequence(container.size());
@@ -187,6 +149,35 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 		}
 	}
 }
+
+PmergeMe::PmergeMe() {return ;}
+
+PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeListSort(0) {
+	if (checkArgs(ac, av) == false) {
+		throw InvalidArgument();
+	}
+	//* once the arguments are checked, we can fill the containers *//
+	for (int i = 1; i < ac; i++) {
+		this->_vectorContainer.push_back(_strToInt(av[i]));
+		this->_listContainer.push_back(_strToInt(av[i]));
+	}
+	//* Display one of the containers *//
+	std::cout	<< YELLOW "Before: " RESET;
+	_displayContainer(this->_vectorContainer);
+	//* sort the list container and the vector container using the Ford-Johnson Merge Sort algorithm *//
+	this->_timeVectorSort = _vectorSort(this->_vectorContainer);
+	this->_timeListSort = _listSort(this->_listContainer);
+	return ;
+}
+
+PmergeMe::PmergeMe(PmergeMe const &pmergeMe) : _vectorContainer(pmergeMe._vectorContainer), \
+												_listContainer(pmergeMe._listContainer), \
+												_timeVectorSort(pmergeMe._timeVectorSort), \
+												_timeListSort(pmergeMe._timeListSort) {
+	return ;
+}
+
+PmergeMe::~PmergeMe() {return ;}
 
 PmergeMe	&PmergeMe::operator=(PmergeMe const &pmergeMe) {
 	_vectorContainer = pmergeMe._vectorContainer;
