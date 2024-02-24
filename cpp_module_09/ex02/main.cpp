@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:06 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/20 14:36:16 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/24 14:18:38 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int ac, char **av) {
 	if (ac < 3) {
 		std::cout	<< RED BOLD << "Error: " << RESET
 					<< "Not enough arguments." << std::endl;
+		return 1;
 	}
 	try {
 		PmergeMe	runAlgo(ac, av);
