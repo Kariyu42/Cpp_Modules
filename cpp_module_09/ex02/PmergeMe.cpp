@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/26 10:29:17 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:35:27 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,10 +183,13 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	size_t size = jacobsthal.size();
 	std::cout << "size jaco = " << size << std::endl;
 	
-	std::vector<int>::iterator	idxSequence;
+	std::vector<int>					idxSequence;
+	int									lastInsertedIdx = -1;
 	std::vector<int>::const_iterator	itJacob = jacobsthal.begin();
-	for (size_t i = 0; i < smallSorted.size(); i++) {
-		
+	for (size_t idx = 0; idx < smallSorted.size(); idx++) {
+		if (itJacob != jacobsthal.end() && *itJacob == idx) {
+			
+		}
 	}
 
 	if (straggler) {
