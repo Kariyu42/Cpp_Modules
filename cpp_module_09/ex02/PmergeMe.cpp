@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/24 17:59:18 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:29:17 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,24 @@ void	PmergeMe::throwValues(std::vector<std::vector<int> > &pairs, std::vector<in
 	return ;
 }
 
+int		PmergeMe::jacobsthal(int n) {
+	if (n == 0)
+		return 0;
+	if (n == 1)
+		return 1;
+	return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
+}
+
 std::vector<int>	PmergeMe::initSequence(size_t size) {
-	std::vector<int>	jacobsthal;
-	jacobsthal.push_back(0);
-	jacobsthal.push_back(1);
-	for (size_t i = 2; i < size; i++) {
-		jacobsthal.push_back(jacobsthal[i - 1] + 2 * jacobsthal[i - 2]);
+	int				jacobIndex = 3;
+	std::vector<int>	jacobsthalSequence;
+
+	while (jacobsthal(jacobIndex) <= static_cast<int>(size)) {
+		jacobsthalSequence.push_back(jacobsthal(jacobIndex));
+		jacobIndex++;
 	}
-	return jacobsthal;
+
+	return jacobsthalSequence;
 }
 
 void	showContainer(std::vector<std::vector<int> > &pairs) {
@@ -164,6 +174,7 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	_displayContainer(smallSorted);
 	std::cout << "resSequence after insert: " << std::endl;
 	_displayContainer(resSequence);
+	std::cout << "smallSorted.size() = " << smallSorted.size() << std::endl;
 	std::vector<int>	jacobsthal = initSequence(smallSorted.size());
 
 	std::cout << BLUE "===== ENTERING FOR LOOP =====" << RESET << std::endl;
@@ -172,31 +183,12 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	size_t size = jacobsthal.size();
 	std::cout << "size jaco = " << size << std::endl;
 	
-	for (size_t i = 0; i < jacobsthal.size(); ++i) {
-		if (jacobsthal[i] <= static_cast<int>(smallSorted.size())) {
-			std::cout << "i = " << i << std::endl;
-			int	index = jacobsthal[i];
-			//* need to handle the case where we encounter at index of jacobsthal two 1
-			//* e.g => jacobsthal = {0, 1, 1, 3, 5, 9, 17, 31, 57, 105, 193, 355, 653, 1201, 2209, 4063, 7473, 13745, 25281, 46561, 85937, 158817, 293545, 540897, 997537, 1838741, 3392821, 6259741, 11552003, 21300629, 39226497, 72277377, 133261153, 245122753, 451861833, 832635457, 1536796801, 2839725265, 5237523377, 9668440203, 17840596177, 32895996545, 60635500121, 111687796799, 205930635321, 379891791841, 699345613057, 1288020210177, 2372515049745, 4375099216777, 8068443231903, 14874205271457, 27442383003393, 50501915861057, 93080415718081, 171457098692417, 316729578526273, 583248240622881, 1073734579286017, 1977308325976833, 3644230590339329, 6716539779776193, 12379400392853889, 22802510499212033, 42047528254943873, 77564142197338241, 142882242814746337, 263747951750360641, 486675264292965377, 897697708241906817, 1655617327040999937, 3057227021950580225, 5632544161009530113, 10385522901205533313, 19152845158865828481, 35345263893403836033, 65173993025112145537, 120261084602236058625, 221424845759342384897, 408855843832398455553, 753778764945832576001, 138953697008169158337
-			if (i > 0 && jacobsthal[i] == jacobsthal[i - 1]) {
-				index++;
-			}
-			std::cout << YELLOW "index = " << index << RESET << std::endl;
-			int	valueToInsert = smallSorted[index];
-			std::cout << RED "valueToInsert = " << valueToInsert << RESET << std::endl;
-			std::vector<int>::iterator pos = std::lower_bound(resSequence.begin(), resSequence.end(), valueToInsert);
-			//* this function will return an iterator pointing to the first element in the range [first, last) which does not compare less than valueToInsert
-			//* and the insert will insert valueToInsert before the element pointed by pos
-			//* e.g => resSequence = {1, 3, 5, 7, 9}, valueToInsert = 4, pos = 5
-			resSequence.insert(pos, valueToInsert);
-			//* rm value from smallSorted
-			// smallSorted.erase(smallSorted.begin() + index);
-			std::cout << "smallSorted in for loop: " << std::endl;
-			_displayContainer(smallSorted);
-			std::cout << "resSequence in for loop: " << std::endl;
-			_displayContainer(resSequence);
-		}
+	std::vector<int>::iterator	idxSequence;
+	std::vector<int>::const_iterator	itJacob = jacobsthal.begin();
+	for (size_t i = 0; i < smallSorted.size(); i++) {
+		
 	}
+
 	if (straggler) {
 		// use lower_bound to find the position of straggler in resSequence
 		size_t	pos = std::lower_bound(resSequence.begin(), resSequence.end(), straggler) - resSequence.begin();

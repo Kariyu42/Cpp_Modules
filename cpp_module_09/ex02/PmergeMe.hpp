@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/23 18:02:07 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:11:00 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ class PmergeMe
 		void					_sortPairs(std::vector<std::vector<int> > &pairs);
 		void					throwValues(std::vector<std::vector<int> > &pairs, std::vector<int> &container);
 		std::vector<int>		initSequence(size_t size);
+		int						jacobsthal(int n);
 };
 
 #endif
