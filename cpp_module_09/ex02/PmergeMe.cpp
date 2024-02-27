@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/26 10:35:27 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/27 10:28:02 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,10 +185,24 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	
 	std::vector<int>					idxSequence;
 	int									lastInsertedIdx = -1;
-	std::vector<int>::const_iterator	itJacob = jacobsthal.begin();
+	std::vector<int>::iterator	itJacob = jacobsthal.begin();
 	for (size_t idx = 0; idx < smallSorted.size(); idx++) {
-		if (itJacob != jacobsthal.end() && *itJacob == idx) {
-			
+		if (itJacob != jacobsthal.end() && *itJacob == static_cast<int>(idx)) {
+			if (std::find(idxSequence.begin(), idxSequence.end(), idx) == idxSequence.end()) {
+				//* below is binary search to find the position of smallSorted[idx] in resSequence
+				std::vector<int>::iterator	it = std::lower_bound(resSequence.begin(), resSequence.end(), smallSorted[idx]);
+				resSequence.insert(it, smallSorted[idx]); //* Insert whilst keeping the order
+				idxSequence.push_back(idx); //* mark the index as inserted
+				lastInsertedIdx = idx; //* update the last inserted index
+				itJacob++; //* move to the next jacobsthal number
+			}
+		}
+		else {
+			if (lastInsertedIdx != static_cast<int>(idx)) {
+				std::vector<int>::iterator	it = std::lower_bound(resSequence.begin(), resSequence.end(), smallSorted[idx]);
+				resSequence.insert(it, smallSorted[idx]);
+				idxSequence.push_back(idx);
+			}
 		}
 	}
 
@@ -200,6 +214,25 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 
 	//* Copy resSequence to container
 	container = resSequence;
+
+	gettimeofday(&end, NULL);
+	double	time = (end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec;
+	return time;
+}
+
+double	PmergeMe::_listSort(std::list<int> &container) {
+	struct timeval	start, end;
+	int				straggler = 0;
+
+	gettimeofday(&start, NULL);
+
+	//* use the same algorithm as for vectors *//
+	if (container.size() % 2 != 0) {
+		straggler = container.back();
+		container.pop_back();
+	}
+	std::list<std::list<int> >	pairs = 
+	
 
 	gettimeofday(&end, NULL);
 	double	time = (end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec;
