@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/27 10:28:02 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 12:13:20 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	PmergeMe::_strToInt(std::string str) {
 	return n;
 }
 
-std::vector<std::vector<int> >	PmergeMe::createPairs(std::vector<int> &container) {
+std::vector<std::vector<int> >	PmergeMe::_createVPairs(std::vector<int> &container) {
 	std::vector<std::vector<int> >	pairs;
 	std::vector<int>::iterator		it = container.begin();
 	std::vector<int>::iterator		ite = container.end();
@@ -75,7 +75,7 @@ std::vector<std::vector<int> >	PmergeMe::createPairs(std::vector<int> &container
 	return pairs;
 }
 
-void	PmergeMe::_sortPairs(std::vector<std::vector<int> > &pairs) {
+void	PmergeMe::_sortVPairs(std::vector<std::vector<int> > &pairs) {
 
 	std::vector<std::vector<int> >::iterator	it = pairs.begin();
 	std::vector<std::vector<int> >::iterator	ite = pairs.end();
@@ -100,13 +100,14 @@ void	PmergeMe::_sortPairs(std::vector<std::vector<int> > &pairs) {
 	return ;
 }
 
-void	PmergeMe::throwValues(std::vector<std::vector<int> > &pairs, std::vector<int> &container) {
+void	PmergeMe::_throwVecValues(std::vector<std::vector<int> > &pairs, std::vector<int> &container) {
 	std::vector<std::vector<int> >::iterator	it = pairs.begin();
 	std::vector<std::vector<int> >::iterator	ite = pairs.end();
 	for (; it != ite; it++) {
 		container.push_back((*it).back());
 		(*it).pop_back();
 	}
+
 	return ;
 }
 
@@ -119,7 +120,7 @@ int		PmergeMe::jacobsthal(int n) {
 }
 
 std::vector<int>	PmergeMe::initSequence(size_t size) {
-	int				jacobIndex = 3;
+	int					jacobIndex = 3;
 	std::vector<int>	jacobsthalSequence;
 
 	while (jacobsthal(jacobIndex) <= static_cast<int>(size)) {
@@ -128,16 +129,6 @@ std::vector<int>	PmergeMe::initSequence(size_t size) {
 	}
 
 	return jacobsthalSequence;
-}
-
-void	showContainer(std::vector<std::vector<int> > &pairs) {
-	std::vector<std::vector<int> >::iterator	it = pairs.begin();
-	std::vector<std::vector<int> >::iterator	ite = pairs.end();
-	for (; it != ite; it++) {
-		std::cout << CYAN << "[" << (*it).front() << ", " << (*it).back() << "] " RESET;
-	}
-	std::cout << std::endl;
-	return ;
 }
 
 double	PmergeMe::_vectorSort(std::vector<int> &container) {
@@ -149,57 +140,39 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	if (container.size() % 2 != 0) {
 		straggler = container.back();
 		container.pop_back();
-		std::cout << "Straggler holding: " << GREEN "[" << straggler << "]" RESET << std::endl;
 	}
-	_displayContainer(container);
-	std::vector<std::vector<int> >	pairs = this->createPairs(container);
-	std::cout << "Pairs before: " << std::endl;
-	showContainer(pairs);
-	this->_sortPairs(pairs);
-	std::cout << "Pairs after: " << std::endl;
-	showContainer(pairs);
+
+	std::vector<std::vector<int> >	pairs = this->_createVPairs(container);
+	this->_sortVPairs(pairs);
 
 	std::vector<int>	resSequence;
 	std::vector<int>	smallSorted;
-	this->throwValues(pairs, resSequence);
-	std::cout << "resSequence: " << std::endl;
-	_displayContainer(resSequence);
-	this->throwValues(pairs, smallSorted);
-	std::cout << "smallSorted: " << std::endl;
-	_displayContainer(smallSorted);
+	this->_throwVecValues(pairs, resSequence);
+	this->_throwVecValues(pairs, smallSorted);
 
 	resSequence.insert(resSequence.begin(), smallSorted.front());
 	smallSorted.erase(smallSorted.begin());
-	std::cout << "smallSorted after insert: " << std::endl;
-	_displayContainer(smallSorted);
-	std::cout << "resSequence after insert: " << std::endl;
-	_displayContainer(resSequence);
-	std::cout << "smallSorted.size() = " << smallSorted.size() << std::endl;
 	std::vector<int>	jacobsthal = initSequence(smallSorted.size());
 
-	std::cout << BLUE "===== ENTERING FOR LOOP =====" << RESET << std::endl;
-	std::cout << "jacobsthal: " << std::endl;
-	_displayContainer(jacobsthal);
-	size_t size = jacobsthal.size();
-	std::cout << "size jaco = " << size << std::endl;
-	
 	std::vector<int>					idxSequence;
 	int									lastInsertedIdx = -1;
 	std::vector<int>::iterator	itJacob = jacobsthal.begin();
+
 	for (size_t idx = 0; idx < smallSorted.size(); idx++) {
 		if (itJacob != jacobsthal.end() && *itJacob == static_cast<int>(idx)) {
 			if (std::find(idxSequence.begin(), idxSequence.end(), idx) == idxSequence.end()) {
-				//* below is binary search to find the position of smallSorted[idx] in resSequence
 				std::vector<int>::iterator	it = std::lower_bound(resSequence.begin(), resSequence.end(), smallSorted[idx]);
-				resSequence.insert(it, smallSorted[idx]); //* Insert whilst keeping the order
-				idxSequence.push_back(idx); //* mark the index as inserted
-				lastInsertedIdx = idx; //* update the last inserted index
-				itJacob++; //* move to the next jacobsthal number
+				resSequence.insert(it, smallSorted[idx]);
+				idxSequence.push_back(idx);
+				lastInsertedIdx = idx;
+				itJacob++;
 			}
 		}
 		else {
 			if (lastInsertedIdx != static_cast<int>(idx)) {
-				std::vector<int>::iterator	it = std::lower_bound(resSequence.begin(), resSequence.end(), smallSorted[idx]);
+				std::vector<int>::iterator	it = std::lower_bound(resSequence.begin(), \
+																	resSequence.end(), \
+																	smallSorted[idx]);
 				resSequence.insert(it, smallSorted[idx]);
 				idxSequence.push_back(idx);
 			}
@@ -207,17 +180,63 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	}
 
 	if (straggler) {
-		// use lower_bound to find the position of straggler in resSequence
-		size_t	pos = std::lower_bound(resSequence.begin(), resSequence.end(), straggler) - resSequence.begin();
+		size_t	pos = std::lower_bound(resSequence.begin(), \
+										resSequence.end(), \
+										straggler) - resSequence.begin();
 		resSequence.insert(resSequence.begin() + pos, straggler);
 	}
 
-	//* Copy resSequence to container
 	container = resSequence;
 
 	gettimeofday(&end, NULL);
 	double	time = (end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec;
 	return time;
+}
+
+//* =============== List Functions =============== *//
+
+std::list<std::list<int> >	PmergeMe::_createLPairs(std::list<int> &container) {
+	std::list<std::list<int> >	pairs;
+	std::list<int>::iterator		it = container.begin();
+	std::list<int>::iterator		ite = container.end();
+	for (; it != ite; it++) {
+		std::list<int>	pair;
+		pair.push_back(*it);
+		it++;
+		pair.push_back(*it);
+		pairs.push_back(pair);
+	}
+
+	return pairs;
+}
+
+void	PmergeMe::_sortLPairs(std::list<std::list<int> > &pairs) {
+	std::list<std::list<int> >::iterator	it = pairs.begin();
+	std::list<std::list<int> >::iterator	ite = pairs.end();
+	for (; it != ite; it++) {
+		if ((*it).front() > (*it).back()) {
+			std::swap((*it).front(), (*it).back());
+		}
+	}
+
+	it = pairs.begin();
+	bool	swapped;
+
+	do {
+		swapped = false;
+		std::list<std::list<int> >::iterator	nextIt = it;
+		++nextIt;
+		while (nextIt != pairs.end()) {
+			if ((*it).back() > (*nextIt).back()) {
+				std::swap(*it, *nextIt);
+				swapped = true;
+			}
+			++nextIt;
+			++it;
+		}
+	} while (swapped);
+
+	return ;
 }
 
 double	PmergeMe::_listSort(std::list<int> &container) {
@@ -231,9 +250,10 @@ double	PmergeMe::_listSort(std::list<int> &container) {
 		straggler = container.back();
 		container.pop_back();
 	}
-	std::list<std::list<int> >	pairs = 
-	
+	std::list<std::list<int> >	pairs = this->_createLPairs(container);
+	this->_sortLPairs(pairs);
 
+	
 	gettimeofday(&end, NULL);
 	double	time = (end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec;
 	return time;
@@ -255,7 +275,7 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeListSort(0) {
 	_displayContainer(this->_vectorContainer);
 
 	this->_timeVectorSort = _vectorSort(this->_vectorContainer);
-	// this->_timeListSort = _listSort(this->_listContainer);
+	this->_timeListSort = _listSort(this->_listContainer);
 
 	std::cout	<< YELLOW "After: " RESET;
 	_displayContainer(this->_vectorContainer);
