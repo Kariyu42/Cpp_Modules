@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 18:20:54 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:24:17 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ class PmergeMe
 
 		template <typename T>
 		void	_displayContainer(T &container) {
-			std::vector<int>::iterator	it = container.begin();
-			std::vector<int>::iterator	ite = container.end();
+			typename T::iterator	it = container.begin();
+			typename T::iterator	ite = container.end();
 
 			for (; it != ite; it++) {
 				std::cout << CYAN << *it << " " RESET;

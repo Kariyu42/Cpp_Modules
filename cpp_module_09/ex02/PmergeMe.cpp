@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 18:19:54 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:25:01 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,7 @@ double	PmergeMe::_dequeSort(std::deque<int> &container) {
 	std::deque<int>	idxSequence;
 	int	lastInsertedIndex = -1;
 	std::deque<int>::iterator	itJacob = jacobsthal.begin();
+
 	for (size_t idx = 0; idx < smallSorted.size(); idx++) {
 		if (itJacob != jacobsthal.end() && *itJacob == static_cast<int>(idx)) {
 				if (std::find(idxSequence.begin(), idxSequence.end(), idx) == idxSequence.end()) {
@@ -337,8 +338,12 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 	this->_timeVectorSort = _vectorSort(this->_vectorContainer);
 	this->_timeDequeSort = _dequeSort(this->_dequeContainer);
 
-	std::cout	<< YELLOW "After: " RESET;
+	std::cout	<< YELLOW "VECTOR After: " RESET;
 	_displayContainer(this->_vectorContainer);
+
+	std::cout << std::endl;
+	std::cout	<< YELLOW "DEQUE After: " RESET;
+	_displayContainer(this->_dequeContainer);
 
 	std::cout	<< BLUE "Time to process a range of " << _vectorContainer.size() \
 				<< " elements with std::vector : " << _timeVectorSort << " us" \
