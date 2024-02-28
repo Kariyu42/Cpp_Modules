@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 12:12:56 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:36:51 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <exception>
 # include <algorithm>
 # include <sys/time.h>
-
 
 //* Color codes *//
 # define RED		"\033[31m"
@@ -47,28 +46,32 @@ class PmergeMe
 				virtual const char	*what() const throw();
 		};
 
+		static int	jacobsthal(int n);
 	private:
 		PmergeMe( void );
 
-		double								_timeVectorSort;
-		std::vector<int>					_vectorContainer;
-		double								_vectorSort(std::vector<int> &container);
-		std::vector<std::vector<int> >		_createVPairs(std::vector<int> &container);
-		void								_sortVPairs(std::vector<std::vector<int> > &pairs);
-		void								_throwVecValues(std::vector<std::vector<int> > &pairs, std::vector<int> &container);
+		double	_timeVectorSort;
+		std::vector<int>	_vectorContainer;
+		double	_vectorSort(std::vector<int> &container);
+		std::vector<std::vector<int> >	_createVPairs(std::vector<int> &container);
+		void	_sortVPairs(std::vector<std::vector<int> > &pairs);
+		void	_throwVecValues(std::vector<std::vector<int> > &pairs, std::vector<int> &container);
 
-		double								_timeListSort;
-		std::list<int>						_listContainer;
-		double								_listSort(std::list<int> &container);
-		std::list<std::list<int> >			_createLPairs(std::list<int> &container);
-		void								_sortLPairs(std::list<std::list<int> > &pairs);
+		double	_timeListSort;
+		std::list<int>	_listContainer;
+		double	_listSort(std::list<int> &container);
+		std::list<std::list<int> >	_createLPairs(std::list<int> &container);
+		void	_sortLPairs(std::list<std::list<int> > &pairs);
+		void	_throwLstValues(std::list<std::list<int> > &pairs, std::list<int> &container);
 
-		int						_strToInt(std::string str);
-		void					_displayContainer(std::vector<int> container);
+		//* ===== Basic Utils ===== *//
+		bool	_checkArgs(int ac, char **av);
+		int		_strToInt(std::string str);
+		void	_displayContainer(std::vector<int> container);
 
-		bool					checkArgs(int ac, char **av);
-		std::vector<int>		initSequence(size_t size);
-		int						jacobsthal(int n);
 };
+
+std::vector<int>		initVecSequence(size_t size);
+std::list<int>			initLstSequence(size_t size);
 
 #endif

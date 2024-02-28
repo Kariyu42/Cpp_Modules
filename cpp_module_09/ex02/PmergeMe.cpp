@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 12:13:20 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:06:47 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	PmergeMe::_displayContainer(std::vector<int> container) {
 	return ;
 }
 
-bool	PmergeMe::checkArgs(int ac, char **av) {
+bool	PmergeMe::_checkArgs(int ac, char **av) {
 	std::string		arg;
 	int				i = 1;
 	while (i < ac) {
@@ -65,6 +65,7 @@ std::vector<std::vector<int> >	PmergeMe::_createVPairs(std::vector<int> &contain
 	std::vector<std::vector<int> >	pairs;
 	std::vector<int>::iterator		it = container.begin();
 	std::vector<int>::iterator		ite = container.end();
+
 	for (; it != ite; it++) {
 		std::vector<int>	pair;
 		pair.push_back(*it);
@@ -72,6 +73,7 @@ std::vector<std::vector<int> >	PmergeMe::_createVPairs(std::vector<int> &contain
 		pair.push_back(*it);
 		pairs.push_back(pair);
 	}
+
 	return pairs;
 }
 
@@ -103,6 +105,7 @@ void	PmergeMe::_sortVPairs(std::vector<std::vector<int> > &pairs) {
 void	PmergeMe::_throwVecValues(std::vector<std::vector<int> > &pairs, std::vector<int> &container) {
 	std::vector<std::vector<int> >::iterator	it = pairs.begin();
 	std::vector<std::vector<int> >::iterator	ite = pairs.end();
+
 	for (; it != ite; it++) {
 		container.push_back((*it).back());
 		(*it).pop_back();
@@ -119,16 +122,28 @@ int		PmergeMe::jacobsthal(int n) {
 	return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
 }
 
-std::vector<int>	PmergeMe::initSequence(size_t size) {
+std::vector<int>	initVecSequence(size_t size) {
 	int					jacobIndex = 3;
 	std::vector<int>	jacobsthalSequence;
 
-	while (jacobsthal(jacobIndex) <= static_cast<int>(size)) {
-		jacobsthalSequence.push_back(jacobsthal(jacobIndex));
+	while (PmergeMe::jacobsthal(jacobIndex) <= static_cast<int>(size)) {
+		jacobsthalSequence.push_back(PmergeMe::jacobsthal(jacobIndex));
 		jacobIndex++;
 	}
 
 	return jacobsthalSequence;
+}
+
+std::list<int>	initLstSequence(size_t size) {
+	int	jacobIndex = 3;
+	std::list<int>	jacobsthaleSequence;
+
+	while (PmergeMe::jacobsthal(jacobIndex) <= static_cast<int>(size)) {
+		jacobsthaleSequence.push_back(PmergeMe::jacobsthal(jacobIndex));
+		jacobIndex++;
+	}
+
+	return jacobsthaleSequence;
 }
 
 double	PmergeMe::_vectorSort(std::vector<int> &container) {
@@ -152,7 +167,7 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 
 	resSequence.insert(resSequence.begin(), smallSorted.front());
 	smallSorted.erase(smallSorted.begin());
-	std::vector<int>	jacobsthal = initSequence(smallSorted.size());
+	std::vector<int>	jacobsthal = initVecSequence(smallSorted.size());
 
 	std::vector<int>					idxSequence;
 	int									lastInsertedIdx = -1;
@@ -239,6 +254,18 @@ void	PmergeMe::_sortLPairs(std::list<std::list<int> > &pairs) {
 	return ;
 }
 
+void	PmergeMe::_throwLstValues(std::list<std::list<int> > &pairs, std::list<int> &container) {
+	std::list<std::list<int> >::iterator it = pairs.begin();
+	std::list<std::list<int> >::iterator ite = pairs.end();
+
+	for (; it != ite; it++) {
+		container.push_back((*it).back());
+		(*it).pop_back();
+	}
+
+	return ;
+}
+
 double	PmergeMe::_listSort(std::list<int> &container) {
 	struct timeval	start, end;
 	int				straggler = 0;
@@ -253,7 +280,21 @@ double	PmergeMe::_listSort(std::list<int> &container) {
 	std::list<std::list<int> >	pairs = this->_createLPairs(container);
 	this->_sortLPairs(pairs);
 
-	
+	std::list<int>	resSequence;
+	std::list<int>	smallSorted;
+	this->_throwLstValues(pairs, resSequence);
+	this->_throwLstValues(pairs, smallSorted);
+
+	resSequence.insert(resSequence.begin(), smallSorted.front());
+	smallSorted.erase(smallSorted.begin());
+	std::list<int>	jacobsthal = initLstSequence(smallSorted.size());
+
+	std::list<int>	idxSequence;
+	int	lastInsertedIndex = -1;
+	std::list<int>::iterator	itJacob = jacobsthal.begin();
+
+	for ()
+
 	gettimeofday(&end, NULL);
 	double	time = (end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec;
 	return time;
@@ -262,7 +303,7 @@ double	PmergeMe::_listSort(std::list<int> &container) {
 PmergeMe::PmergeMe() {return ;}
 
 PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeListSort(0) {
-	if (checkArgs(ac, av) == false) {
+	if (this->_checkArgs(ac, av) == false) {
 		throw InvalidArgument();
 	}
 
