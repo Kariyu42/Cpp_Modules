@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 17:59:05 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:19:54 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -339,8 +339,54 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 
 	std::cout	<< YELLOW "After: " RESET;
 	_displayContainer(this->_vectorContainer);
-	_displayContainer(this->_dequeContainer);
-	
+
+	std::cout	<< BLUE "Time to process a range of " << _vectorContainer.size() \
+				<< " elements with std::vector : " << _timeVectorSort << " us" \
+				<< RESET << std::endl;
+
+	std::cout	<< GREEN "Time to process a range of " << _dequeContainer.size() \
+				<< " elements with std::deque : " << _timeDequeSort << " us" \
+				<< RESET << std::endl;
+
+	//* check if both vector and deque containers are sorted, that there is no duplicates and that the size of the containers is equal to ac - 1 *//
+	std::vector<int>::iterator	it = this->_vectorContainer.begin();
+	std::vector<int>::iterator	ite = this->_vectorContainer.end();
+	std::deque<int>::iterator	it2 = this->_dequeContainer.begin();
+	std::deque<int>::iterator	ite2 = this->_dequeContainer.end();
+	//* check duplicates in vector *//
+	for (; it != ite; it++) {
+		if (std::find(it + 1, ite, *it) != ite) {
+			std::cout << RED "Error: Duplicates in vector container." RESET << std::endl;
+			throw InvalidArgument();
+		}
+	}
+	//* check duplicates in deque *//
+	for (; it2 != ite2; it2++) {
+		if (std::find(it2 + 1, ite2, *it2) != ite2) {
+			std::cout << RED "Error: Duplicates in deque container." RESET << std::endl;
+			throw InvalidArgument();
+		}
+	}
+	//* check if both containers are sorted *//
+	it = this->_vectorContainer.begin();
+	it2 = this->_dequeContainer.begin();
+	for (; it != ite; it++) {
+		if (it + 1 != ite && *it > *(it + 1)) {
+			std::cout << RED "Error: Vector container is not sorted." RESET << std::endl;
+			throw InvalidArgument();
+		}
+	}
+	for (; it2 != ite2; it2++) {
+		if (it2 + 1 != ite2 && *it2 > *(it2 + 1)) {
+			std::cout << RED "Error: Deque container is not sorted." RESET << std::endl;
+			throw InvalidArgument();
+		}
+	}
+	//* check if there is the same amount of elements like provided in ac *//
+	if (this->_vectorContainer.size() != static_cast<size_t>(ac - 1) || this->_dequeContainer.size() != static_cast<size_t>(ac - 1)) {
+		std::cout << RED "Error: Size of containers is not equal to ac - 1." RESET << std::endl;
+		throw InvalidArgument();
+	}
 	return ;
 }
 
