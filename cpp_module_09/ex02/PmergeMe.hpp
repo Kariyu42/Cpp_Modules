@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 18:24:17 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:31:25 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ class PmergeMe
 		std::deque<int>	_dequeContainer;
 		double	_timeDequeSort;
 		double	_dequeSort(std::deque<int> &container);
-		std::deque<std::deque<int> >	_createLPairs(std::deque<int> &container);
+		std::deque<std::deque<int> >	_createDPairs(std::deque<int> &container);
 		void	_sortDPairs(std::deque<std::deque<int> > &pairs);
 		void	_throwDeqValues(std::deque<std::deque<int> > &pairs, std::deque<int> &container);
 

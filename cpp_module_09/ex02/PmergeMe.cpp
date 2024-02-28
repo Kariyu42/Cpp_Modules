@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 18:25:01 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:33:29 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 
 //* =============== Deque Functions =============== *//
 
-std::deque<std::deque<int> >	PmergeMe::_createLPairs(std::deque<int> &container) {
+std::deque<std::deque<int> >	PmergeMe::_createDPairs(std::deque<int> &container) {
 	std::deque<std::deque<int> >	pairs;
 	std::deque<int>::iterator		it = container.begin();
 	std::deque<int>::iterator		ite = container.end();
@@ -269,7 +269,7 @@ double	PmergeMe::_dequeSort(std::deque<int> &container) {
 		straggler = container.back();
 		container.pop_back();
 	}
-	std::deque<std::deque<int> >	pairs = this->_createLPairs(container);
+	std::deque<std::deque<int> >	pairs = this->_createDPairs(container);
 	this->_sortDPairs(pairs);
 
 	std::deque<int>	resSequence;
@@ -287,10 +287,10 @@ double	PmergeMe::_dequeSort(std::deque<int> &container) {
 
 	for (size_t idx = 0; idx < smallSorted.size(); idx++) {
 		if (itJacob != jacobsthal.end() && *itJacob == static_cast<int>(idx)) {
-				if (std::find(idxSequence.begin(), idxSequence.end(), idx) == idxSequence.end()) {
-					std::deque<int>::iterator	it = std::lower_bound(resSequence.begin(), \
-																		resSequence.end(), \
-																		smallSorted[idx]);
+			if (std::find(idxSequence.begin(), idxSequence.end(), idx) == idxSequence.end()) {
+				std::deque<int>::iterator	it = std::lower_bound(resSequence.begin(), \
+																	resSequence.end(), \
+																	smallSorted[idx]);
 				resSequence.insert(it, smallSorted[idx]);
 				idxSequence.push_back(idx);
 				lastInsertedIndex = idx;
