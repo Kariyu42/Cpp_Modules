@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 17:42:53 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:59:05 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ std::deque<int>	initDeqSequence(size_t size) {
 
 double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	struct timeval	start, end;
-	int				straggler = 0;
+	int				straggler = -1;
 
 	gettimeofday(&start, NULL);
 
@@ -186,7 +186,7 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 		}
 	}
 
-	if (straggler) {
+	if (straggler != -1) {
 		size_t	pos = std::lower_bound(resSequence.begin(), \
 										resSequence.end(), \
 										straggler) - resSequence.begin();
@@ -260,7 +260,7 @@ void	PmergeMe::_throwDeqValues(std::deque<std::deque<int> > &pairs, std::deque<i
 
 double	PmergeMe::_dequeSort(std::deque<int> &container) {
 	struct timeval	start, end;
-	int				straggler = 0;
+	int				straggler = -1;
 
 	gettimeofday(&start, NULL);
 
@@ -307,7 +307,7 @@ double	PmergeMe::_dequeSort(std::deque<int> &container) {
 		}
 	}
 
-	if (straggler) {
+	if (straggler != -1) {
 		size_t	pos = std::lower_bound(resSequence.begin(), \
 										resSequence.end(), \
 										straggler) - resSequence.begin();
