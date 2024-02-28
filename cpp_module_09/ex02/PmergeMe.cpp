@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 17:06:47 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:25:23 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,9 @@ std::vector<int>	initVecSequence(size_t size) {
 	return jacobsthalSequence;
 }
 
-std::list<int>	initLstSequence(size_t size) {
+std::deque<int>	initDeqSequence(size_t size) {
 	int	jacobIndex = 3;
-	std::list<int>	jacobsthaleSequence;
+	std::deque<int>	jacobsthaleSequence;
 
 	while (PmergeMe::jacobsthal(jacobIndex) <= static_cast<int>(size)) {
 		jacobsthaleSequence.push_back(PmergeMe::jacobsthal(jacobIndex));
@@ -208,14 +208,14 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	return time;
 }
 
-//* =============== List Functions =============== *//
+//* =============== Deque Functions =============== *//
 
-std::list<std::list<int> >	PmergeMe::_createLPairs(std::list<int> &container) {
-	std::list<std::list<int> >	pairs;
-	std::list<int>::iterator		it = container.begin();
-	std::list<int>::iterator		ite = container.end();
+std::deque<std::deque<int> >	PmergeMe::_createLPairs(std::deque<int> &container) {
+	std::deque<std::deque<int> >	pairs;
+	std::deque<int>::iterator		it = container.begin();
+	std::deque<int>::iterator		ite = container.end();
 	for (; it != ite; it++) {
-		std::list<int>	pair;
+		std::deque<int>	pair;
 		pair.push_back(*it);
 		it++;
 		pair.push_back(*it);
@@ -225,9 +225,9 @@ std::list<std::list<int> >	PmergeMe::_createLPairs(std::list<int> &container) {
 	return pairs;
 }
 
-void	PmergeMe::_sortLPairs(std::list<std::list<int> > &pairs) {
-	std::list<std::list<int> >::iterator	it = pairs.begin();
-	std::list<std::list<int> >::iterator	ite = pairs.end();
+void	PmergeMe::_sortDPairs(std::deque<std::deque<int> > &pairs) {
+	std::deque<std::deque<int> >::iterator	it = pairs.begin();
+	std::deque<std::deque<int> >::iterator	ite = pairs.end();
 	for (; it != ite; it++) {
 		if ((*it).front() > (*it).back()) {
 			std::swap((*it).front(), (*it).back());
@@ -239,7 +239,7 @@ void	PmergeMe::_sortLPairs(std::list<std::list<int> > &pairs) {
 
 	do {
 		swapped = false;
-		std::list<std::list<int> >::iterator	nextIt = it;
+		std::deque<std::deque<int> >::iterator	nextIt = it;
 		++nextIt;
 		while (nextIt != pairs.end()) {
 			if ((*it).back() > (*nextIt).back()) {
@@ -254,9 +254,9 @@ void	PmergeMe::_sortLPairs(std::list<std::list<int> > &pairs) {
 	return ;
 }
 
-void	PmergeMe::_throwLstValues(std::list<std::list<int> > &pairs, std::list<int> &container) {
-	std::list<std::list<int> >::iterator it = pairs.begin();
-	std::list<std::list<int> >::iterator ite = pairs.end();
+void	PmergeMe::_throwDeqValues(std::deque<std::deque<int> > &pairs, std::deque<int> &container) {
+	std::deque<std::deque<int> >::iterator it = pairs.begin();
+	std::deque<std::deque<int> >::iterator ite = pairs.end();
 
 	for (; it != ite; it++) {
 		container.push_back((*it).back());
@@ -266,7 +266,7 @@ void	PmergeMe::_throwLstValues(std::list<std::list<int> > &pairs, std::list<int>
 	return ;
 }
 
-double	PmergeMe::_listSort(std::list<int> &container) {
+double	PmergeMe::_dequeSort(std::deque<int> &container) {
 	struct timeval	start, end;
 	int				straggler = 0;
 
@@ -277,23 +277,21 @@ double	PmergeMe::_listSort(std::list<int> &container) {
 		straggler = container.back();
 		container.pop_back();
 	}
-	std::list<std::list<int> >	pairs = this->_createLPairs(container);
-	this->_sortLPairs(pairs);
+	std::deque<std::deque<int> >	pairs = this->_createLPairs(container);
+	this->_sortDPairs(pairs);
 
-	std::list<int>	resSequence;
-	std::list<int>	smallSorted;
-	this->_throwLstValues(pairs, resSequence);
-	this->_throwLstValues(pairs, smallSorted);
+	std::deque<int>	resSequence;
+	std::deque<int>	smallSorted;
+	this->_throwDeqValues(pairs, resSequence);
+	this->_throwDeqValues(pairs, smallSorted);
 
 	resSequence.insert(resSequence.begin(), smallSorted.front());
 	smallSorted.erase(smallSorted.begin());
-	std::list<int>	jacobsthal = initLstSequence(smallSorted.size());
+	std::deque<int>	jacobsthal = initLstSequence(smallSorted.size());
 
-	std::list<int>	idxSequence;
+	std::deque<int>	idxSequence;
 	int	lastInsertedIndex = -1;
-	std::list<int>::iterator	itJacob = jacobsthal.begin();
-
-	for ()
+	std::deque<int>::iterator	itJacob = jacobsthal.begin();
 
 	gettimeofday(&end, NULL);
 	double	time = (end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec;
@@ -302,33 +300,33 @@ double	PmergeMe::_listSort(std::list<int> &container) {
 
 PmergeMe::PmergeMe() {return ;}
 
-PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeListSort(0) {
+PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 	if (this->_checkArgs(ac, av) == false) {
 		throw InvalidArgument();
 	}
 
 	for (int i = 1; i < ac; i++) {
 		this->_vectorContainer.push_back(_strToInt(av[i]));
-		// this->_listContainer.push_back(_strToInt(av[i]));
+		// this->_dequeContainer.push_back(_strToInt(av[i]));
 	}
 
 	std::cout	<< YELLOW "Before: " RESET;
 	_displayContainer(this->_vectorContainer);
 
 	this->_timeVectorSort = _vectorSort(this->_vectorContainer);
-	this->_timeListSort = _listSort(this->_listContainer);
+	this->_timeDequeSort = _dequeSort(this->_dequeContainer);
 
 	std::cout	<< YELLOW "After: " RESET;
 	_displayContainer(this->_vectorContainer);
-	// _displayContainer(this->_listContainer);
+	// _displayContainer(this->_dequeContainer);
 	
 	return ;
 }
 
 PmergeMe::PmergeMe(PmergeMe const &pmergeMe) : _vectorContainer(pmergeMe._vectorContainer), \
 												_timeVectorSort(pmergeMe._timeVectorSort), \
-												_listContainer(pmergeMe._listContainer), \
-												_timeListSort(pmergeMe._timeListSort) {
+												_dequeContainer(pmergeMe._dequeContainer), \
+												_timeDequeSort(pmergeMe._timeDequeSort) {
 	return ;
 }
 
@@ -336,8 +334,8 @@ PmergeMe::~PmergeMe() {return ;}
 
 PmergeMe	&PmergeMe::operator=(PmergeMe const &pmergeMe) {
 	_vectorContainer = pmergeMe._vectorContainer;
-	_listContainer = pmergeMe._listContainer;
+	_dequeContainer = pmergeMe._dequeContainer;
 	_timeVectorSort = pmergeMe._timeVectorSort;
-	_timeListSort = pmergeMe._timeListSort;
+	_timeDequeSort = pmergeMe._timeDequeSort;
 	return *this;
 }

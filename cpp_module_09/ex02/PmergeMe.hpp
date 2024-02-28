@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 16:36:51 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:24:37 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <iostream>
 # include <sstream>
 # include <vector>
-# include <list>
+# include <deque>
 # include <exception>
 # include <algorithm>
 # include <sys/time.h>
@@ -57,12 +57,12 @@ class PmergeMe
 		void	_sortVPairs(std::vector<std::vector<int> > &pairs);
 		void	_throwVecValues(std::vector<std::vector<int> > &pairs, std::vector<int> &container);
 
-		double	_timeListSort;
-		std::list<int>	_listContainer;
-		double	_listSort(std::list<int> &container);
-		std::list<std::list<int> >	_createLPairs(std::list<int> &container);
-		void	_sortLPairs(std::list<std::list<int> > &pairs);
-		void	_throwLstValues(std::list<std::list<int> > &pairs, std::list<int> &container);
+		double	_timeDequeSort;
+		std::deque<int>	_dequeContainer;
+		double	_dequeSort(std::deque<int> &container);
+		std::deque<std::deque<int> >	_createLPairs(std::deque<int> &container);
+		void	_sortDPairs(std::deque<std::deque<int> > &pairs);
+		void	_throwDeqValues(std::deque<std::deque<int> > &pairs, std::deque<int> &container);
 
 		//* ===== Basic Utils ===== *//
 		bool	_checkArgs(int ac, char **av);
@@ -72,6 +72,6 @@ class PmergeMe
 };
 
 std::vector<int>		initVecSequence(size_t size);
-std::list<int>			initLstSequence(size_t size);
+std::deque<int>			initDeqSequence(size_t size);
 
 #endif
