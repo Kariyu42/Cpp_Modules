@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 17:24:37 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:42:45 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,19 @@ class PmergeMe
 		//* ===== Basic Utils ===== *//
 		bool	_checkArgs(int ac, char **av);
 		int		_strToInt(std::string str);
-		void	_displayContainer(std::vector<int> container);
 
+		template <typename T>
+		void	_displayContainer(T &container) {
+			std::vector<int>::iterator	it = container.begin();
+			std::vector<int>::iterator	ite = container.end();
+
+			for (; it != ite; it++) {
+				std::cout << CYAN << *it << " " RESET;
+			}
+
+			std::cout << std::endl;
+			return ;
+		}
 };
 
 std::vector<int>		initVecSequence(size_t size);

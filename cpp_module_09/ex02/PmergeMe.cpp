@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 17:25:23 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:42:53 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 
 char const	*PmergeMe::InvalidArgument::what() const throw() {
 	return "Throwing an exception: Invalid argument.";
-}
-
-void	PmergeMe::_displayContainer(std::vector<int> container) {
-	std::vector<int>::iterator	it = container.begin();
-	std::vector<int>::iterator	ite = container.end();
-	for (; it != ite; it++) {
-		std::cout << CYAN << *it << " " RESET;
-	}
-	std::cout << std::endl;
-	return ;
 }
 
 bool	PmergeMe::_checkArgs(int ac, char **av) {
@@ -176,7 +166,9 @@ double	PmergeMe::_vectorSort(std::vector<int> &container) {
 	for (size_t idx = 0; idx < smallSorted.size(); idx++) {
 		if (itJacob != jacobsthal.end() && *itJacob == static_cast<int>(idx)) {
 			if (std::find(idxSequence.begin(), idxSequence.end(), idx) == idxSequence.end()) {
-				std::vector<int>::iterator	it = std::lower_bound(resSequence.begin(), resSequence.end(), smallSorted[idx]);
+				std::vector<int>::iterator	it = std::lower_bound(resSequence.begin(), \
+																	resSequence.end(), \
+																	smallSorted[idx]);
 				resSequence.insert(it, smallSorted[idx]);
 				idxSequence.push_back(idx);
 				lastInsertedIdx = idx;
@@ -287,11 +279,40 @@ double	PmergeMe::_dequeSort(std::deque<int> &container) {
 
 	resSequence.insert(resSequence.begin(), smallSorted.front());
 	smallSorted.erase(smallSorted.begin());
-	std::deque<int>	jacobsthal = initLstSequence(smallSorted.size());
+	std::deque<int>	jacobsthal = initDeqSequence(smallSorted.size());
 
 	std::deque<int>	idxSequence;
 	int	lastInsertedIndex = -1;
 	std::deque<int>::iterator	itJacob = jacobsthal.begin();
+	for (size_t idx = 0; idx < smallSorted.size(); idx++) {
+		if (itJacob != jacobsthal.end() && *itJacob == static_cast<int>(idx)) {
+				if (std::find(idxSequence.begin(), idxSequence.end(), idx) == idxSequence.end()) {
+					std::deque<int>::iterator	it = std::lower_bound(resSequence.begin(), \
+																		resSequence.end(), \
+																		smallSorted[idx]);
+				resSequence.insert(it, smallSorted[idx]);
+				idxSequence.push_back(idx);
+				lastInsertedIndex = idx;
+				itJacob++;
+			}
+		}
+		else {
+			if (lastInsertedIndex != static_cast<int>(idx)) {
+				std::deque<int>::iterator	it = std::lower_bound(resSequence.begin(), \
+																	resSequence.end(), \
+																	smallSorted[idx]);
+				resSequence.insert(it, smallSorted[idx]);
+				idxSequence.push_back(idx);
+			}
+		}
+	}
+
+	if (straggler) {
+		size_t	pos = std::lower_bound(resSequence.begin(), \
+										resSequence.end(), \
+										straggler) - resSequence.begin();
+		resSequence.insert(resSequence.begin() + pos, straggler);
+	}
 
 	gettimeofday(&end, NULL);
 	double	time = (end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec;
@@ -307,7 +328,7 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 
 	for (int i = 1; i < ac; i++) {
 		this->_vectorContainer.push_back(_strToInt(av[i]));
-		// this->_dequeContainer.push_back(_strToInt(av[i]));
+		this->_dequeContainer.push_back(_strToInt(av[i]));
 	}
 
 	std::cout	<< YELLOW "Before: " RESET;
@@ -318,7 +339,7 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 
 	std::cout	<< YELLOW "After: " RESET;
 	_displayContainer(this->_vectorContainer);
-	// _displayContainer(this->_dequeContainer);
+	_displayContainer(this->_dequeContainer);
 	
 	return ;
 }
