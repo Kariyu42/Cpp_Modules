@@ -6,16 +6,22 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/29 10:57:39 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/29 16:33:13 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
+//* Exception implementation *//
 char const	*PmergeMe::InvalidArgument::what() const throw() {
 	return "Throwing an exception: Invalid argument.";
 }
 
+char const	*PmergeMe::ArgumentSorted::what() const throw() {
+	return "Throwing an exception: Argument is already sorted.";
+}
+
+//* =============== Utils =============== *//
 bool	PmergeMe::_checkArgs(int ac, char **av) {
 	std::string		arg;
 	int				i = 1;
@@ -28,25 +34,24 @@ bool	PmergeMe::_checkArgs(int ac, char **av) {
 		}
 		i++;
 	}
-	std::cout << "LETS GO" << std::endl;
-	//* check if there is duplicates *//
+
 	std::vector<int>	unique;
 	for (int i = 1; i < ac; i++) {
 		unique.push_back(_strToInt(av[i]));
 	}
+
 	std::sort(unique.begin(), unique.end());
 	std::vector<int>::iterator	it = unique.begin();
 	std::vector<int>::iterator	ite = unique.end();
 	for (; it != ite - 1; it++) {
 		if (*it == *(it + 1)) {
-			//* print the duplicate *//
-			std::cout << "Duplicate: " << *it << std::endl;
-			std::cout << "Duplicate: " << *(it + 1) << std::endl;
 			return false;
 		}
 	}
+
 	return true;
 }
+
 
 int	PmergeMe::_strToInt(std::string str) {
 	std::istringstream	ss(str);
@@ -55,6 +60,26 @@ int	PmergeMe::_strToInt(std::string str) {
 	return n;
 }
 
+bool	PmergeMe::_dataSorted(int ac, char **av) {
+	int	i = 1;
+	while (i < ac - 1) {
+		if (_strToInt(av[i]) > _strToInt(av[i + 1])) {
+			return false;
+		}
+		i++;
+	}
+	return true;
+}
+
+int		PmergeMe::jacobsthal(int n) {
+	if (n == 0)
+		return 0;
+	if (n == 1)
+		return 1;
+	return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
+}
+
+//* =============== Vector Functions =============== *//
 std::vector<std::vector<int> >	PmergeMe::_createVPairs(std::vector<int> &container) {
 	std::vector<std::vector<int> >	pairs;
 	std::vector<int>::iterator		it = container.begin();
@@ -108,14 +133,6 @@ void	PmergeMe::_throwVecValues(std::vector<std::vector<int> > &pairs, std::vecto
 	return ;
 }
 
-int		PmergeMe::jacobsthal(int n) {
-	if (n == 0)
-		return 0;
-	if (n == 1)
-		return 1;
-	return jacobsthal(n - 1) + 2 * jacobsthal(n - 2);
-}
-
 std::vector<int>	initVecSequence(size_t size) {
 	int					jacobIndex = 3;
 	std::vector<int>	jacobsthalSequence;
@@ -126,18 +143,6 @@ std::vector<int>	initVecSequence(size_t size) {
 	}
 
 	return jacobsthalSequence;
-}
-
-std::deque<int>	initDeqSequence(size_t size) {
-	int	jacobIndex = 3;
-	std::deque<int>	jacobsthaleSequence;
-
-	while (PmergeMe::jacobsthal(jacobIndex) <= static_cast<int>(size)) {
-		jacobsthaleSequence.push_back(PmergeMe::jacobsthal(jacobIndex));
-		jacobIndex++;
-	}
-
-	return jacobsthaleSequence;
 }
 
 double	PmergeMe::_vectorSort(std::vector<int> &container) {
@@ -230,20 +235,18 @@ void	PmergeMe::_sortDPairs(std::deque<std::deque<int> > &pairs) {
 		}
 	}
 
-	it = pairs.begin();
 	bool	swapped;
 
 	do {
 		swapped = false;
-		std::deque<std::deque<int> >::iterator	nextIt = it;
-		++nextIt;
-		while (nextIt != pairs.end()) {
+		it = pairs.begin();
+		while (it != pairs.end() && (it + 1) != pairs.end()) {
+			std::deque<std::deque<int> >::iterator	nextIt = it + 1;
 			if ((*it).back() > (*nextIt).back()) {
 				std::swap(*it, *nextIt);
 				swapped = true;
 			}
-			++nextIt;
-			++it;
+			it++;
 		}
 	} while (swapped);
 
@@ -260,6 +263,18 @@ void	PmergeMe::_throwDeqValues(std::deque<std::deque<int> > &pairs, std::deque<i
 	}
 
 	return ;
+}
+
+std::deque<int>	initDeqSequence(size_t size) {
+	int	jacobIndex = 3;
+	std::deque<int>	jacobsthaleSequence;
+
+	while (PmergeMe::jacobsthal(jacobIndex) <= static_cast<int>(size)) {
+		jacobsthaleSequence.push_back(PmergeMe::jacobsthal(jacobIndex));
+		jacobIndex++;
+	}
+
+	return jacobsthaleSequence;
 }
 
 double	PmergeMe::_dequeSort(std::deque<int> &container) {
@@ -325,12 +340,15 @@ double	PmergeMe::_dequeSort(std::deque<int> &container) {
 	return time;
 }
 
+//* =============== Canonical Form =============== *//
 PmergeMe::PmergeMe() {return ;}
 
 PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 	if (this->_checkArgs(ac, av) == false) {
-		std::cout << "caca" << std::endl;
 		throw InvalidArgument();
+	}
+	else if (this->_dataSorted(ac, av) == true) {
+		throw ArgumentSorted();
 	}
 
 	for (int i = 1; i < ac; i++) {
@@ -345,21 +363,18 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 	this->_timeVectorSort = _vectorSort(this->_vectorContainer);
 	this->_timeDequeSort = _dequeSort(this->_dequeContainer);
 
-	std::cout	<< YELLOW "VECTOR After: " RESET;
+	std::cout	<< YELLOW "After:  " RESET;
 	_displayContainer(this->_vectorContainer);
 	std::cout << std::endl;
 
-	std::cout	<< YELLOW "DEQUE After: " RESET;
-	_displayContainer(this->_dequeContainer);
-	std::cout << std::endl;
+	//* print the time to process for both containers in micro seconds *//
+	std::cout	<< GREEN "Time to process a range of " BLUE << _vectorContainer.size() << GREEN \
+				<< " elements with " MAGENTA "std::vector : " GREEN BOLD << std::setprecision(5) \
+				<< _timeVectorSort << " us" << RESET << std::endl;
 
-	std::cout	<< BLUE "Time to process a range of " << _vectorContainer.size() \
-				<< " elements with std::vector : " << _timeVectorSort << " us" \
-				<< RESET << std::endl;
-
-	std::cout	<< GREEN "Time to process a range of " << _dequeContainer.size() \
-				<< " elements with std::deque : " << _timeDequeSort << " us" \
-				<< RESET << std::endl;
+	std::cout	<< GREEN "Time to process a range of " BLUE << _dequeContainer.size() << GREEN \
+				<< " elements with " MAGENTA "std::deque : " GREEN BOLD << std::setprecision(5) \
+				<< _timeDequeSort << " us" << RESET << std::endl;
 
 	std::vector<int>::iterator	it = this->_vectorContainer.begin();
 	std::vector<int>::iterator	ite = this->_vectorContainer.end();
@@ -382,7 +397,6 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 		}
 	}
 
-	//* check if both containers are sorted *//
 	it = this->_vectorContainer.begin();
 	it2 = this->_dequeContainer.begin();
 	for (; it != ite; it++) {
@@ -398,12 +412,6 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 		}
 	}
 
-	// //* check if there is the same amount of elements like provided in ac *//
-	// if (this->_vectorContainer.size() != static_cast<size_t>(ac - 1) \
-	// 	|| this->_dequeContainer.size() != static_cast<size_t>(ac - 1)) {
-	// 	std::cout << RED "Error: Size of containers is not equal to ac - 1." RESET << std::endl;
-	// 	throw InvalidArgument();
-	// }
 	return ;
 }
 
