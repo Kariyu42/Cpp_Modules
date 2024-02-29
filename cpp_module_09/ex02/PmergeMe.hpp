@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:34:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 18:31:25 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/29 10:11:43 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 # define MAGENTA	"\033[35m"
 # define CYAN		"\033[36m"
 # define BOLD		"\033[1m"
-# define UNDERLINE	"\033[4m"
 # define RESET		"\033[0m"
 
 class PmergeMe
@@ -68,6 +67,7 @@ class PmergeMe
 		bool	_checkArgs(int ac, char **av);
 		int		_strToInt(std::string str);
 
+		//* ===== Display Utils ===== *//
 		template <typename T>
 		void	_displayContainer(T &container) {
 			typename T::iterator	it = container.begin();
@@ -77,7 +77,22 @@ class PmergeMe
 				std::cout << CYAN << *it << " " RESET;
 			}
 
-			std::cout << std::endl;
+			return ;
+		}
+
+		template <typename T>
+		void	_displayPairs(T &container) {
+			typename T::iterator	it = container.begin();
+			typename T::iterator	ite = container.end();
+
+			std::cout << "Pairs: " << std::endl;
+			std::cout << "{ ";
+			for (; it != ite; it++) {
+				std::cout << "[ ";
+				_displayContainer(*it);
+				std::cout << "]";
+			}
+			std::cout << " }" << std::endl;
 			return ;
 		}
 };

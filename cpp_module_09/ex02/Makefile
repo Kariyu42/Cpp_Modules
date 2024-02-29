@@ -6,7 +6,7 @@
 #    By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/17 22:35:40 by kquetat-          #+#    #+#              #
-#    Updated: 2024/02/19 17:07:36 by kquetat-         ###   ########.fr        #
+#    Updated: 2024/02/29 10:23:07 by kquetat-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ endif
 	${CC} ${CFLAGS} -c $< -o $@
 
 # --- EXEC / RULES --- #
-NAME	=	RPN
+NAME	=	PmergeMe
 
 all:	${NAME}
 

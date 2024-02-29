@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/28 18:33:29 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/29 10:14:13 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,6 @@ double	PmergeMe::_dequeSort(std::deque<int> &container) {
 
 	gettimeofday(&start, NULL);
 
-	//* use the same algorithm as for vectors *//
 	if (container.size() % 2 != 0) {
 		straggler = container.back();
 		container.pop_back();
@@ -315,6 +314,8 @@ double	PmergeMe::_dequeSort(std::deque<int> &container) {
 		resSequence.insert(resSequence.begin() + pos, straggler);
 	}
 
+	container = resSequence;
+
 	gettimeofday(&end, NULL);
 	double	time = (end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec;
 	return time;
@@ -334,16 +335,18 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 
 	std::cout	<< YELLOW "Before: " RESET;
 	_displayContainer(this->_vectorContainer);
+	std::cout << std::endl;
 
 	this->_timeVectorSort = _vectorSort(this->_vectorContainer);
 	this->_timeDequeSort = _dequeSort(this->_dequeContainer);
 
 	std::cout	<< YELLOW "VECTOR After: " RESET;
 	_displayContainer(this->_vectorContainer);
-
 	std::cout << std::endl;
+
 	std::cout	<< YELLOW "DEQUE After: " RESET;
 	_displayContainer(this->_dequeContainer);
+	std::cout << std::endl;
 
 	std::cout	<< BLUE "Time to process a range of " << _vectorContainer.size() \
 				<< " elements with std::vector : " << _timeVectorSort << " us" \
@@ -353,11 +356,11 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 				<< " elements with std::deque : " << _timeDequeSort << " us" \
 				<< RESET << std::endl;
 
-	//* check if both vector and deque containers are sorted, that there is no duplicates and that the size of the containers is equal to ac - 1 *//
 	std::vector<int>::iterator	it = this->_vectorContainer.begin();
 	std::vector<int>::iterator	ite = this->_vectorContainer.end();
 	std::deque<int>::iterator	it2 = this->_dequeContainer.begin();
 	std::deque<int>::iterator	ite2 = this->_dequeContainer.end();
+
 	//* check duplicates in vector *//
 	for (; it != ite; it++) {
 		if (std::find(it + 1, ite, *it) != ite) {
@@ -365,6 +368,7 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 			throw InvalidArgument();
 		}
 	}
+
 	//* check duplicates in deque *//
 	for (; it2 != ite2; it2++) {
 		if (std::find(it2 + 1, ite2, *it2) != ite2) {
@@ -372,6 +376,7 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 			throw InvalidArgument();
 		}
 	}
+
 	//* check if both containers are sorted *//
 	it = this->_vectorContainer.begin();
 	it2 = this->_dequeContainer.begin();
@@ -387,6 +392,7 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 			throw InvalidArgument();
 		}
 	}
+
 	//* check if there is the same amount of elements like provided in ac *//
 	if (this->_vectorContainer.size() != static_cast<size_t>(ac - 1) || this->_dequeContainer.size() != static_cast<size_t>(ac - 1)) {
 		std::cout << RED "Error: Size of containers is not equal to ac - 1." RESET << std::endl;
