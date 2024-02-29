@@ -6,7 +6,7 @@
 /*   By: kquetat- <kquetat-@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:36:43 by kquetat-          #+#    #+#             */
-/*   Updated: 2024/02/29 10:14:13 by kquetat-         ###   ########.fr       */
+/*   Updated: 2024/02/29 10:57:39 by kquetat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ bool	PmergeMe::_checkArgs(int ac, char **av) {
 		}
 		i++;
 	}
+	std::cout << "LETS GO" << std::endl;
 	//* check if there is duplicates *//
 	std::vector<int>	unique;
 	for (int i = 1; i < ac; i++) {
@@ -36,8 +37,11 @@ bool	PmergeMe::_checkArgs(int ac, char **av) {
 	std::sort(unique.begin(), unique.end());
 	std::vector<int>::iterator	it = unique.begin();
 	std::vector<int>::iterator	ite = unique.end();
-	for (; it != ite; it++) {
+	for (; it != ite - 1; it++) {
 		if (*it == *(it + 1)) {
+			//* print the duplicate *//
+			std::cout << "Duplicate: " << *it << std::endl;
+			std::cout << "Duplicate: " << *(it + 1) << std::endl;
 			return false;
 		}
 	}
@@ -325,6 +329,7 @@ PmergeMe::PmergeMe() {return ;}
 
 PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 	if (this->_checkArgs(ac, av) == false) {
+		std::cout << "caca" << std::endl;
 		throw InvalidArgument();
 	}
 
@@ -393,11 +398,12 @@ PmergeMe::PmergeMe(int ac, char **av) : _timeVectorSort(0), _timeDequeSort(0) {
 		}
 	}
 
-	//* check if there is the same amount of elements like provided in ac *//
-	if (this->_vectorContainer.size() != static_cast<size_t>(ac - 1) || this->_dequeContainer.size() != static_cast<size_t>(ac - 1)) {
-		std::cout << RED "Error: Size of containers is not equal to ac - 1." RESET << std::endl;
-		throw InvalidArgument();
-	}
+	// //* check if there is the same amount of elements like provided in ac *//
+	// if (this->_vectorContainer.size() != static_cast<size_t>(ac - 1) \
+	// 	|| this->_dequeContainer.size() != static_cast<size_t>(ac - 1)) {
+	// 	std::cout << RED "Error: Size of containers is not equal to ac - 1." RESET << std::endl;
+	// 	throw InvalidArgument();
+	// }
 	return ;
 }
 
