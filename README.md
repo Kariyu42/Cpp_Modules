@@ -14,4 +14,4 @@ As part of the curriculum, the goal of Cpp_Modules is to provide a structured in
 - **cpp_module_06** : Completed ✅
 - **cpp_module_07** : Completed ✅
 - **cpp_module_08** : Completed ✅
-- **cpp_module_09** : In progress...
+- **cpp_module_09** : Completed ✅
